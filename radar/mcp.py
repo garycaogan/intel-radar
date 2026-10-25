@@ -37,8 +37,8 @@ _RO = {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "
 
 TOOLS = [
     {"name": "radar_today", "title": "今天这一期",
-     "description": "某一期 AI 情报的概览：一段总结、今天冒头的题材和 X 爆发的事、6 到 8 条头条（等级、为什么值得看、怎么做、下一步、要注意、代表作）。"
-                    "用户问「今天 AI 圈 / AI 视频圈有什么值得看的」「有什么新题材」时先用它。",
+     "description": "某一期 AI 情报的概览：一段总结、今天冒头的题材（全部新起、升温的视频题材和 X 上爆发的事）、6 到 8 条头条（等级、为什么值得看、怎么做、下一步、要注意、代表作）。"
+                    "用户问「今天 AI 圈 / AI 视频圈有什么值得看的」「有哪些新起或升温的题材」时先用它，不要用搜索代替。",
      "inputSchema": {"type": "object", "properties": {"day": _DAY}, "additionalProperties": False}, "annotations": _RO},
     {"name": "radar_video_topics", "title": "视频新题材",
      "description": "各平台最近 7 天的 AI 视频按题材归类的结果：标签（新起/升温/持续/观察/回落）、账号数和播放数、判断依据、代表作链接。"
@@ -70,7 +70,8 @@ TOOLS = [
          "day": {**_DAY, "description": "在哪一期里找，北京日期 YYYY-MM-DD；不填就从最近 7 期里找"}},
          "required": ["topic"], "additionalProperties": False}, "annotations": _RO},
     {"name": "radar_search", "title": "搜往期",
-     "description": "在最近几期情报里按关键词搜：头条、视频题材、X 热议、开源项目和资讯都会搜到，按日期列出。用户问某个模型、工具、博主、玩法最近有没有动静时用它。",
+     "description": "在最近几期情报里按关键词搜：头条、视频题材、X 热议、开源项目和资讯都会搜到，按日期列出；标签（新起、升温、爆发等）和头条等级也算进去。"
+                    "用户问某个模型、工具、博主、玩法最近有没有动静时用它。只想知道今天有哪些新题材、哪些在冒头，直接用 radar_today 或 radar_video_topics，比搜索全。",
      "inputSchema": {"type": "object", "properties": {
          "q": {"type": "string", "minLength": 1, "description": "关键词，空格隔开的几个词要同时出现"},
          "days": {"type": "integer", "minimum": 1, "maximum": 30, "description": "往回搜几期，默认 7"}},
@@ -474,13 +475,15 @@ def search(store: Store, q: str, days: int = 7) -> str:
         day, b, sec = issue["day"], _b(issue), _sec(issue)
         rows = []
         for i, h in enumerate(b.get("headline") or []):
-            if isinstance(h, dict) and all(t in _hay(h.get("title"), h.get("verdict"), h.get("why"), h.get("comment")) for t in terms):
+            g = (h.get("grade") or "").strip().upper()[:1] if isinstance(h, dict) else ""
+            if isinstance(h, dict) and all(t in _hay(h.get("title"), h.get("verdict"), h.get("why"), h.get("comment"), GRADE.get(g, ""),
+                                                     *[l.get("label") for l in h.get("links") or [] if isinstance(l, dict)]) for t in terms):
                 rows.append(f"头条 · {md(h.get('title'))} — {md(h.get('verdict'))} · {store.url(day, store.anchor('head', i + 1))}")
         for t in sec.get("video") or []:
-            if isinstance(t, dict) and all(x in _hay(t.get("name"), t.get("summary"), *[s.get("title") for s in t.get("samples") or [] if isinstance(s, dict)]) for x in terms):
+            if isinstance(t, dict) and all(x in _hay(t.get("label"), t.get("kind"), t.get("name"), t.get("summary"), *[s.get("title") for s in t.get("samples") or [] if isinstance(s, dict)]) for x in terms):
                 rows.append(f"视频题材 · 【{t.get('label', '')}】{md(t.get('name'))} — {md(clip(t.get('summary'), 60))} · {store.url(day, store.anchor('video', t.get('thread_id')))}")
         for t in sec.get("x") or []:
-            if isinstance(t, dict) and all(x in _hay(t.get("name"), t.get("summary"), *[s.get("title") for s in t.get("samples") or [] if isinstance(s, dict)]) for x in terms):
+            if isinstance(t, dict) and all(x in _hay(t.get("label"), t.get("kind"), t.get("name"), t.get("summary"), *[s.get("title") for s in t.get("samples") or [] if isinstance(s, dict)]) for x in terms):
                 rows.append(f"X 热议 · 【{t.get('label', '')}】{md(t.get('name'))} — {md(clip(t.get('summary'), 60))} · {store.url(day, store.anchor('x', t.get('thread_id')))}")
         for i, r in enumerate((sec.get("tools") or {}).get("repos") or []):
             if isinstance(r, dict) and all(x in _hay(r.get("name"), r.get("zh"), r.get("use"), r.get("desc")) for x in terms):
