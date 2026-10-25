@@ -76,6 +76,8 @@ SHARE_URL = _env("RADAR_SHARE_URL", "http://127.0.0.1:8792/#intel-radar?day={day
 
 SERVE_HOST = _env("RADAR_HOST", "127.0.0.1")
 SERVE_PORT = int(_env("RADAR_PORT", "8792"))
+# Where the pages are read: links in the MCP answers point here (your public copy, or the local server).
+PUBLIC_URL = _env("RADAR_PUBLIC_URL", f"http://{SERVE_HOST}:{SERVE_PORT}")
 
 # Cost estimates for the run report (not billing truth). Prices from TikHub's free
 # /api/v1/tikhub/user/get_all_endpoints_info, checked 2026-10-22; anything unlisted counts at the default.

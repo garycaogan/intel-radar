@@ -24,6 +24,8 @@ RADAR_DATA_DIR=/tmp/radar-check python3 -m radar serve --port 8793
 
 **改了分享卡片（`radar/share.py`、`radar/render.py` 里的 `SHARE_JS` 和卡片样式）**：设 `RADAR_SHARE_URL='http://127.0.0.1:8793/#intel-radar?day={day}&item={item}'` 渲染到临时数据目录，在 8793 端口打开，分别点一条头条、一个视频题材、一个竖屏（TikTok/Shorts）题材、一个带图和一个不带图的 X 话题、一个仓库的「分享」：卡片有封面（竖屏封面垫在模糊背景上，GitHub 预览图不被裁），标题不超过两行，三个数字，没有花费和供应商；「保存图片」下载的是 1080×1440 的 PNG；把浏览器 UA 换成飞书或微信时保存按钮隐藏、显示长按提示；Esc 能关掉弹层，焦点回到按钮。再扫一下下载的卡片上的二维码（macOS 上可以用 `swift tests/qr_decode.swift card.png`），打开那个地址，页面要定位到那张卡片并加一圈绿框，换成另一天的条目、或被标签筛选藏起来的条目也一样。
 
+**改了 MCP（`radar/mcp.py`）**：离线测试 `tests/test_mcp.py` 要过；再用真实数据跑一遍：`python3 -m radar serve` 起来后，用 Claude Code 或 Codex 接 `http://127.0.0.1:8792/mcp` 问一个今天的问题和一个题材溯源的问题，看它调对工具、回答里的链接能打开、没有花费和供应商名。
+
 ## 提交
 
 一个提交只做一件事，说明里写清改了什么、为什么。不要提交 `.env`、数据目录、日志和运行生成的页面。

@@ -56,6 +56,7 @@ python3 -m radar run --reuse 6       # 不重新采集，用最近 6 小时存�
 python3 -m radar run --only x        # 只重新采集某几个来源（名字见 radar/pipeline.py 的 COLLECTORS）
 python3 -m radar deep                # 对最新一期的所有视频题材往回查起源（默认每天只查新起和升温的）
 python3 -m radar status              # 最近几次运行
+python3 -m radar mcp                 # 用 stdio 跑 MCP（serve 也在 /mcp 上答，见下文）
 ```
 
 ### 需要哪些密钥
@@ -94,6 +95,26 @@ cron 的时间是服务器本地时间，服务器不在东八区的话自己换
 - 页面和 `data/<日期>.json` 里都没有花费、调用次数、失败来源和运行用时，但数据库和日志里有，所以只同步 `site/`，不要把整个数据目录放出去。
 - 页面默认带 `noindex`，不想被搜索引擎收录就不用管；想被收录，改 `radar/render.py` 里的 robots 标签。
 - `python3 -m radar serve` 只适合本机预览，公开请放在 Nginx、Caddy 或静态托管后面。
+
+## 接到你的 Agent（MCP）
+
+雷达自带一个只读的 MCP，Claude Code、Codex、Cursor 这类 Agent 接上以后，可以直接问「今天有什么新起的 AI 视频题材」「蔬菜家族这个玩法最早什么时候出现的」，它会去查你自己跑出来的那几期，带着页面链接回答。不想自己部署，可以直接接公开版：`https://lab.ytdeepsea.com/mcp`，用法见 [lab.ytdeepsea.com/radar/agent/](https://lab.ytdeepsea.com/radar/agent/)。
+
+7 个工具：`radar_today`（某一期的概览和头条）、`radar_video_topics`（视频新题材，可按标签、平台筛）、`radar_x_topics`（X 热议）、`radar_tools`（开源项目、模型和资讯）、`radar_topic_origin`（题材溯源）、`radar_search`（在最近几期里搜关键词）、`radar_list_issues`（往期列表）。只读数据库里已经存下的日报和溯源，不联网、不花钱，也不会带出运行花费。
+
+两种接法：
+
+```bash
+# 1) HTTP：python3 -m radar serve 本来就在 /mcp 上答 MCP
+python3 -m radar serve
+claude mcp add --transport http intel-radar http://127.0.0.1:8792/mcp
+codex mcp add intel-radar --url http://127.0.0.1:8792/mcp
+
+# 2) stdio：给只支持「启动本地命令」的客户端
+claude mcp add intel-radar -- sh -c 'cd /path/to/intel-radar && python3 -m radar mcp'
+```
+
+回答里的链接默认指向 `http://127.0.0.1:8792`，页面公开以后把 `RADAR_PUBLIC_URL` 设成你的公开地址。`serve` 是给本机用的简单服务，要把 MCP 开给别人，请放在 Nginx、Caddy 这类反向代理后面，并自己加上限流。
 
 ## 改成你自己的
 
