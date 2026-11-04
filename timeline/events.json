@@ -1,0 +1,1375 @@
+{
+  "说明": [
+    "热点时间线的事件表。一条一个事件，顺序随意，生成页面时按日期排。",
+    "页面只显示「今天往前六个整月到往后六个整月」里的事件，窗外的留着也不碍事。",
+    "字段：",
+    "id        英文小写加横线，页面锚点 #ev-<id>；页面公开以后别改",
+    "lane      ai（AI 线）| video（AI 视频线：视频模型和工具，加上做 AI 视频的人会追的影视、游戏）",
+    "category  模型 / 开源 / 产品 / 大会 / 政策 / 行业 / 视频模型 / 视频工具 / 配音音乐 / 电影 / 剧集 / 动画 / 游戏 / 大事件",
+    "date      2026-11-19（到日）| 2026-11（只知道月份）| 2027-Q1（只知道季度）；不知道就往粗里写，别猜",
+    "status    done 已发生 | scheduled 官方定了日子 | expected 有可靠报道但没定日子 | unconfirmed 只有单一来源",
+    "heat      3 全网级大热点 | 2 圈内大事 | 1 值得知道",
+    "title     短标题，14 个字以内",
+    "what      一句话说它是什么",
+    "why       为什么跟做 AI 视频的人有关",
+    "sources   [{name, url}]，至少一个 https 链接，官方优先",
+    "checked   最后一次核实的日期",
+    "image     可选配图 {\"file\": \"x.jpg\", \"from\": \"图的出处页\"}：file 是这个目录下 images/ 里的文件名（640 宽 JPEG 就够），用你有权使用的图；不写就用文字封面",
+    "note      可选的核实备注，不上页面",
+    "parked 里是核实过、但不够大先不上页面的事件，格式一样；要上就整条挪到 events 里。"
+  ],
+  "events": [
+    {
+      "id": "google-io-2026",
+      "lane": "ai",
+      "category": "大会",
+      "date": "2026-05-19",
+      "status": "done",
+      "heat": 3,
+      "title": "谷歌 I/O 2026 大会",
+      "what": "发布 Gemini 3.5 Flash、个人助理 Gemini Spark 和全模态 Omni",
+      "why": "Gemini 成了谷歌全家默认模型，写稿、看视频、做素材的工具都跟着升级",
+      "sources": [
+        {"name": "Business Today", "url": "https://www.businesstoday.in/technology/artificial-intelligence/story/google-io-2026-google-announces-gemini-3-5-models-and-gemini-spark-ai-agent-532351-2026-05-19"},
+        {"name": "TechCabal", "url": "https://techcabal.com/2026/05/19/everything-announced-at-the-google-i-o-2026/"},
+        {"name": "9to5Google I/O 指南", "url": "https://9to5google.com/guides/google-io/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "gemini-omni-io-2026",
+      "lane": "video",
+      "category": "视频模型",
+      "date": "2026-05-19",
+      "status": "done",
+      "heat": 3,
+      "title": "Gemini Omni 发布",
+      "what": "谷歌 I/O 发布的视频优先生成模型，可多模态参考、对话式改片、带音效配乐",
+      "why": "谷歌视频主力从 Veo 换成 Omni，Flow 出手机 App，改片不用整条重来",
+      "sources": [
+        {"name": "9to5Google（I/O 2026 报道）", "url": "https://9to5google.com/2026/05/19/google-flow-video-music-ai-apps/"},
+        {"name": "Google DeepMind 模型卡", "url": "https://deepmind.google/models/model-cards/gemini-omni-flash/"},
+        {"name": "Google DeepMind Gemini Omni", "url": "https://deepmind.google/models/gemini-omni/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "wwdc-2026-siri-ai",
+      "lane": "ai",
+      "category": "大会",
+      "date": "2026-06-08",
+      "status": "done",
+      "heat": 3,
+      "title": "WWDC 新 Siri 亮相",
+      "what": "苹果发布重做的 Siri AI，能读懂个人信息和屏幕内容，配独立 App",
+      "why": "苹果补上 AI 短板的节点，评测、对比类视频的现成选题",
+      "sources": [
+        {"name": "MacRumors", "url": "https://www.macrumors.com/2026/06/08/ios-27-and-siri-ai-release-date/"},
+        {"name": "eWeek", "url": "https://www.eweek.com/news/apple-siri-ai-wwdc-2026/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "claude-fable-5",
+      "lane": "ai",
+      "category": "模型",
+      "date": "2026-06-09",
+      "status": "done",
+      "heat": 3,
+      "title": "Claude Fable 5 发布",
+      "what": "Anthropic 最强公开模型，同时出了只给安全机构用的 Mythos 5",
+      "why": "写长脚本、做复杂工作流的顶级模型，Fable 这个新名字本身也是话题",
+      "sources": [
+        {"name": "IT之家", "url": "https://www.ithome.com/0/962/152.htm"},
+        {"name": "Borecraft", "url": "https://borecraft.com/2026/06/09/claude-fable-5-brings-mythos-to-the-masses-anthropics-new-frontier-model-is-state-of-the-art-on-nearly-all-tested-benchmarks/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "world-cup-2026",
+      "lane": "video",
+      "category": "大事件",
+      "date": "2026-06-11",
+      "status": "done",
+      "heat": 3,
+      "title": "美加墨世界杯",
+      "what": "首届 48 队世界杯，6 月 11 日开幕，7 月 19 日决赛，西班牙加时 1:0 胜阿根廷夺冠。",
+      "why": "全民看球的一个多月，球星换脸、AI 解说、竞猜恶搞的流量最集中。",
+      "sources": [
+        {"name": "FIFA 官方赛事页", "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026"},
+        {"name": "Wikipedia：2026 世界杯 A 组", "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_A"},
+        {"name": "ABC News（决赛）", "url": "https://abcnews.com/GMA/Culture/spain-argentina-win-2026-world-cup/story?id=134824556"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "toy-story-5",
+      "lane": "video",
+      "category": "动画",
+      "date": "2026-06-19",
+      "status": "done",
+      "heat": 3,
+      "title": "玩具总动员 5",
+      "what": "皮克斯招牌系列第五部，胡迪、巴斯光年回归，全球票房破 10 亿美元。",
+      "why": "角色家喻户晓、玩具质感好生成，「玩具活了」类 AI 短片常年爆。",
+      "sources": [
+        {"name": "TheWrap", "url": "https://www.thewrap.com/creative-content/movies/toy-story-5-312-million-global-opening/"},
+        {"name": "Cartoon Brew", "url": "https://www.cartoonbrew.com/box-office-report/toy-story-5-billion-dollar-box-office-264930.html"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "nrta-ai-microdrama-tiers",
+      "lane": "ai",
+      "category": "政策",
+      "date": "2026-07-01",
+      "status": "done",
+      "heat": 2,
+      "title": "AI 微短剧分级标准施行",
+      "what": "广电总局按投资额和题材把 AI 微短剧分三档管理，7 月 1 日起执行",
+      "why": "做 AI 短剧的人直接受影响：投资额和题材决定走哪档审核",
+      "sources": [
+        {"name": "新京报", "url": "https://m.bjnews.com.cn/detail/1782405519189409.html"},
+        {"name": "澎湃新闻", "url": "https://www.thepaper.cn/newsDetail_forward_33643733"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "minions-and-monsters",
+      "lane": "video",
+      "category": "动画",
+      "date": "2026-07-01",
+      "status": "done",
+      "heat": 2,
+      "title": "小黄人 3",
+      "what": "小黄人系列第三部，英文名 Minions & Monsters，小黄人撞上怪物。",
+      "why": "小黄人是 AI 二创常青角色，配音梗、鬼畜和换装素材都现成。",
+      "sources": [
+        {"name": "Box Office Pro", "url": "https://www.boxofficepro.com/weekend-preview-minions-monsters-set-to-lead-july-4-weekend/"},
+        {"name": "Business Today Malaysia", "url": "https://www.businesstoday.com.my/2026/07/04/minions-and-monsters-launches-into-the-box-office-race-with-us62m/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "kungfu-women-football",
+      "lane": "video",
+      "category": "电影",
+      "date": "2026-07-11",
+      "status": "done",
+      "heat": 3,
+      "title": "功夫女足",
+      "what": "周星驰编导的功夫踢女足喜剧，2026 暑期档冠军，档期内 23 亿元。",
+      "why": "《少林足球》式星爷名场面和台词，最适合鬼畜、换脸和仿拍。",
+      "sources": [
+        {"name": "IT之家", "url": "https://www.ithome.com/0/975/473.htm"},
+        {"name": "封面新闻（暑期档收官数据）", "url": "https://cbgc.scol.com.cn/news/7909107"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "kimi-k3",
+      "lane": "ai",
+      "category": "开源",
+      "date": "2026-07-17",
+      "status": "done",
+      "heat": 3,
+      "title": "Kimi K3 发布",
+      "what": "月之暗面 2.8 万亿参数大模型，开放权重，用户挤爆一度暂停订阅",
+      "why": "国产开源模型追到前沿的标志事件，写长稿、看图都能用，话题热",
+      "sources": [
+        {"name": "IT之家", "url": "https://www.ithome.com/0/978/734.htm"},
+        {"name": "联合报（引彭博）", "url": "https://udn.com/news/story/7333/9637174"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "the-odyssey-nolan",
+      "lane": "video",
+      "category": "电影",
+      "date": "2026-07-17",
+      "status": "done",
+      "heat": 3,
+      "title": "诺兰《奥德赛》",
+      "what": "诺兰把荷马史诗拍成真人大片，马特·达蒙演奥德修斯。",
+      "why": "独眼巨人、海妖、特洛伊木马都是名场面，AI 神话史诗仿拍素材多。",
+      "sources": [
+        {"name": "The Hollywood Reporter", "url": "https://www.hollywoodreporter.com/movies/movie-news/the-odyssey-box-office-opening-christopher-nolan-1236651507/"},
+        {"name": "Screen Daily", "url": "https://www.screendaily.com/news/the-odyssey-crosses-1bn-at-global-box-office/5219215.article"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "baxian-animation",
+      "lane": "video",
+      "category": "动画",
+      "date": "2026-07-18",
+      "status": "done",
+      "heat": 3,
+      "title": "八仙！",
+      "what": "国产喜剧动画电影，主角是神话里的八仙。",
+      "why": "神话人物辨识度高、造型鲜明，AI 国风动画和角色仿拍好上手。",
+      "sources": [
+        {"name": "IT之家", "url": "https://www.ithome.com/0/980/337.htm"},
+        {"name": "封面新闻（暑期档收官数据）", "url": "https://cbgc.scol.com.cn/news/7909107"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "seedance-2-5",
+      "lane": "video",
+      "category": "视频模型",
+      "date": "2026-07-31",
+      "status": "done",
+      "heat": 3,
+      "title": "Seedance 2.5 上线",
+      "what": "字节新一代音视频模型，即梦和豆包先上，单次 30 秒，能放 30 张图、10 段视频、10 段音频做参考。",
+      "why": "即梦、豆包直接可用，长镜头、多角色一致的短剧和广告片一条出完",
+      "sources": [
+        {"name": "TechNode", "url": "https://technode.com/2026/07/31/bytedance-launches-seedance-2-5-video-generation-model/"},
+        {"name": "GIGAZINE（原力大会首发）", "url": "https://gigazine.net/gsc_news/en/20260624-bytedance-seedance-2-5/"},
+        {"name": "ByteDance Seed 官方页", "url": "https://seed.bytedance.com/en/seedance2_5"},
+        {"name": "Luma 接入公告", "url": "https://lumalabs.ai/news/seedance-2.5-live-in-luma"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "spider-man-brand-new-day",
+      "lane": "video",
+      "category": "电影",
+      "date": "2026-07-31",
+      "status": "done",
+      "heat": 3,
+      "title": "蜘蛛侠：崭新之日",
+      "what": "荷兰弟的蜘蛛侠第四部，内地 7 月 29 日先上，三周全球票房破 20 亿美元。",
+      "why": "史上第二大全球开画，蜘蛛侠摆荡、换战衣是 AI 特效短片头号素材。",
+      "sources": [
+        {"name": "ABC News", "url": "https://abcnews.com/culture/story/spider-man-brand-new-day-biggest-opening-weekend-135310254"},
+        {"name": "Variety Australia", "url": "https://au.variety.com/?p=39442"},
+        {"name": "游民星空（内地档期）", "url": "https://www.gamersky.com/news/202607/2178642.shtml"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "eu-ai-act-transparency",
+      "lane": "ai",
+      "category": "政策",
+      "date": "2026-08-02",
+      "status": "done",
+      "heat": 2,
+      "title": "欧盟 AI 透明度义务生效",
+      "what": "欧盟 AI 法案要求标注深度伪造和 AI 生成内容，高风险条款推迟到 2027",
+      "why": "发海外平台的 AI 视频要按规矩标「AI 生成」，出海账号得留意",
+      "sources": [
+        {"name": "National Law Review", "url": "https://natlawreview.com/article/eu-digital-omnibus-ai-enters-force"},
+        {"name": "Gibson Dunn", "url": "https://www.gibsondunn.com/eu-ai-act-omnibus-agreement"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "minimax-h3-open-weights",
+      "lane": "video",
+      "category": "开源",
+      "date": "2026-08-03",
+      "status": "done",
+      "heat": 3,
+      "title": "MiniMax H3 开源",
+      "what": "7 月 31 日发布、8 月 3 日放出底模权重，本地出 4–15 秒、768p、带立体声的视频。2K 精修还得走 API，协议是 MiniMax 自己的社区协议。",
+      "why": "第一次能在本地免费批量出带声视频，加速、LoRA、续写生态都围着它长",
+      "sources": [
+        {"name": "Hugging Face MiniMaxAI/MiniMax-H3", "url": "https://huggingface.co/MiniMaxAI/MiniMax-H3"},
+        {"name": "ComfyUI Wiki（权重上线）", "url": "https://comfyui-wiki.com/zh/news/2026-08-03-minimax-h3-open-weights-comfyui"},
+        {"name": "MiniMax 本地部署文档", "url": "https://platform.minimax.io/docs/guides/local-deploy-h3"},
+        {"name": "RuntimeWire（后续开源计划）", "url": "https://runtimewire.com/article/minimax-h3-2k-regeneration-open-release"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "deepseek-v4-pro-harness",
+      "lane": "ai",
+      "category": "开源",
+      "date": "2026-08-13",
+      "status": "done",
+      "heat": 3,
+      "title": "DeepSeek V4 Pro 正式版",
+      "what": "V4 Pro 正式上线，同时开源智能体框架 Harness",
+      "why": "便宜好用的国产模型加开源智能体，能拿来搭自动写稿、剪辑流程",
+      "sources": [
+        {"name": "ForkLog", "url": "https://forklog.com/en/news/deepseek-unveils-open-source-alternative-to-claude-code-and-releases-v4-pro"},
+        {"name": "HPCwire / BigDATAwire", "url": "https://hpcwire.com/bigdatawire/2026/08/14/deepseek-open-sources-the-missing-layer-between-ai-models-and-agents"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "wan-3-0",
+      "lane": "video",
+      "category": "视频模型",
+      "date": "2026-08-13",
+      "status": "done",
+      "heat": 2,
+      "title": "通义万相 Wan 3.0",
+      "what": "阿里新视频模型，单次 30 秒、480p–1080p，可多参考、改剧情和对白",
+      "why": "1080p 每秒 0.2 美元、480p 草稿 0.05 美元，长片打样便宜",
+      "sources": [
+        {"name": "阿里云博客（上线）", "url": "https://www.alibabacloud.com/blog/wan3-0-30-second-ai-video-generation-from-any-input_603452"},
+        {"name": "阿里云博客（国际 GA）", "url": "https://www.alibabacloud.com/blog/wan3-0-at-general-availability-capabilities-benchmarks-pricing-and-the-workflows-it-changes_603505"},
+        {"name": "ComfyUI 官方博客", "url": "https://blog.comfy.org/p/wan-30-in-comfyui-native-30-second"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "black-myth-zhong-kui-gameplay",
+      "lane": "video",
+      "category": "游戏",
+      "date": "2026-08-20",
+      "status": "done",
+      "heat": 2,
+      "title": "黑神话钟馗实机曝光",
+      "what": "游戏科学放出续作《黑神话：钟馗》15 分钟实机演示，未定档",
+      "why": "钟馗捉鬼、国风妖怪视觉强，黑神话粉丝盘大，二创和对比视频多",
+      "sources": [
+        {"name": "Gematsu：15 分钟实机预告", "url": "https://www.gematsu.com/2026/08/black-myth-zhong-kui-15-minute-gameplay-trailer"},
+        {"name": "杭州网英文版：网友称画面「网飞级」", "url": "https://en.hangzhou.com.cn/News/content/2026-08/21/content_9286219.html"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "claude-fable-5-1",
+      "lane": "ai",
+      "category": "模型",
+      "date": "2026-09-01",
+      "status": "done",
+      "heat": 2,
+      "title": "Claude Fable 5.1 发布",
+      "what": "Fable 5 的小版本升级，编程和长任务更强，同时出 Mythos 5.1",
+      "why": "Anthropic 目前最新的 Fable，写长脚本、搭复杂工作流的头部模型之一。",
+      "sources": [
+        {"name": "iPhoneSoft", "url": "https://iphonesoft.fr/2026/09/01/claude-fable-5-1-anthropic-muscle-modele-codage"},
+        {"name": "Anthropic 官方（Opus 5.5 公告中提及 Fable 5.1）", "url": "https://www.anthropic.com/news/claude-opus-5-5"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "gpt-6-astra",
+      "lane": "ai",
+      "category": "模型",
+      "date": "2026-09-03",
+      "status": "done",
+      "heat": 3,
+      "title": "GPT-6 Astra 发布",
+      "what": "OpenAI 首个 GPT-6 模型，网络安全能力达「关键」级，先限量开放",
+      "why": "GPT-6 时代开始，写稿、做智能体都有新旗舰，全网讨论度最高",
+      "sources": [
+        {"name": "新华网", "url": "https://www.news.cn/tech/20260904/52716c2faaa64d228cc311a10acc4a6a/c.html"},
+        {"name": "OpenAI 官方", "url": "https://openai.com/index/gpt-6-astra/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "suno-v6",
+      "lane": "video",
+      "category": "配音音乐",
+      "date": "2026-09-09",
+      "status": "done",
+      "heat": 2,
+      "title": "Suno v6 发布",
+      "what": "Suno 新一代 v6 系列，可按段落改歌、改单句歌词、多首混搭",
+      "why": "配乐能按段落改不用整首重来，v6-mini 免费用户可用，旧模型当天下线",
+      "sources": [
+        {"name": "Suno 官方 release notes", "url": "https://suno.com/release-notes/introducing-v6"},
+        {"name": "Music Business Worldwide", "url": "https://www.musicbusinessworldwide.com/suno-v6-ai-music-models-launch-in-partnership-with-wmg-bmg-and-believe/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "sora-api-shutdown",
+      "lane": "video",
+      "category": "视频工具",
+      "date": "2026-09-24",
+      "status": "done",
+      "heat": 2,
+      "title": "Sora API 停服",
+      "what": "OpenAI 关闭 Sora API，App 已于 4/26 关停，Sora 全面退出",
+      "why": "接 Sora 的工具和工作流要迁到 Seedance、可灵、Omni 等模型",
+      "sources": [
+        {"name": "OpenAI 帮助中心", "url": "https://help.openai.com/en/articles/20001152-what-to-know-about-the-sora-discontinuation"},
+        {"name": "Wikipedia Sora 词条", "url": "https://en.wikipedia.org/wiki/Sora_(text-to-video_model)"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "gemini-4-argon",
+      "lane": "ai",
+      "category": "模型",
+      "date": "2026-09-30",
+      "status": "done",
+      "heat": 3,
+      "title": "Gemini 4 Argon 发布",
+      "what": "谷歌 Gemini 4 首款旗舰推理模型，百万上下文，10 月中全面开放",
+      "why": "谷歌重回第一梯队，Gemini App 和 AI 搜索里写稿、分析素材都换它",
+      "sources": [
+        {"name": "Google Gemini API 文档", "url": "https://ai.google.dev/gemini-api/docs/models/gemini-4-argon"},
+        {"name": "GIGAZINE（Livedoor 转载）", "url": "https://news.livedoor.com/article/detail/32561465/"},
+        {"name": "界面新闻", "url": "https://m.jiemian.com/article/15186385.html"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "claude-fable-5-5-sighting",
+      "lane": "ai",
+      "category": "模型",
+      "date": "2026-10-13",
+      "status": "unconfirmed",
+      "heat": 2,
+      "title": "Claude Fable 5.5 疑似露出",
+      "what": "claude-fable-5-5 这个名字出现在开源工具 LiteLLM 的模型目录里，很快被删，Anthropic 没有确认。",
+      "why": "Fable 是 Anthropic 最强的公开模型线，5.5 真发布会是写稿、做工作流的人都要试的大版本。",
+      "sources": [
+        {"name": "Decrypt", "url": "https://decrypt.co/382390/claude-mythos-fable-5-5-gpt-6-2-astra-leaks"},
+        {"name": "Anthropic 新闻页", "url": "https://www.anthropic.com/news"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "kling-4-launch",
+      "lane": "video",
+      "category": "视频模型",
+      "date": "2026-10-15",
+      "status": "done",
+      "heat": 3,
+      "title": "可灵 4.0 全量上线",
+      "what": "快手可灵新一代模型，单次 30 秒、双声道立体声，最多 10 张图、5 段视频、7 个主体一起参考。",
+      "why": "30 秒带声长镜头一次出，多参考锁人物和道具，广告、短剧直接能用",
+      "sources": [
+        {"name": "AIbase", "url": "https://news.aibase.com/zh/news/31676"},
+        {"name": "MarketScreener（快手公告）", "url": "https://www.marketscreener.com/news/kuaishou-technology-launches-next-generation-kling-4-0-video-generation-model-of-kling-ai-ce785cdade8dff24"},
+        {"name": "快手投资者关系", "url": "https://ir.kuaishou.com/news-releases/news-release-details/kling-ai-officially-launches-next-generation-kling-40-raising"},
+        {"name": "AIbase", "url": "https://news.aibase.com/zh/news/31676"},
+        {"name": "IT之家（Flash 内测）", "url": "https://www.ithome.com/1/008/073.htm"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "anthropic-s1-ipo",
+      "lane": "ai",
+      "category": "行业",
+      "date": "2026-10-26",
+      "status": "done",
+      "heat": 2,
+      "title": "Anthropic 递交上市申请",
+      "what": "Claude 母公司向美国证监会递交上市申请，拟在纳斯达克挂牌，代码 ANT，挂牌日还没定。",
+      "why": "头部 AI 公司首个 IPO，估值和财务数据会被反复解读，财经 AI 号必蹭",
+      "sources": [
+        {"name": "Anthropic 官方", "url": "https://www.anthropic.com/news/s1-sec"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "gpt-6-1-terra",
+      "lane": "ai",
+      "category": "模型",
+      "date": "2026-10-26",
+      "status": "done",
+      "heat": 2,
+      "title": "GPT-6.1 Terra 上线",
+      "what": "OpenAI 中档模型，擅长看图和操作电脑，价格减半、速度快三倍",
+      "why": "官方点名能剪视频、填表、看图纸，可以拿来自动跑重复剪辑活",
+      "sources": [
+        {"name": "OpenAI 官方", "url": "https://openai.com/index/introducing-gpt-6-1-terra/"},
+        {"name": "BleepingComputer", "url": "https://bleepingcomputer.com/news/artificial-intelligence/openai-launches-gpt-61-terra-with-3x-faster-ai-agents-50-percent-lower-pricing"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "genie-4",
+      "lane": "ai",
+      "category": "模型",
+      "date": "2026-10-27",
+      "status": "done",
+      "heat": 2,
+      "title": "Genie 4 世界模型发布",
+      "what": "DeepMind 实时可交互世界模型，打字就能改场景，还能同步生成声音",
+      "why": "能实时生成可走动的场景和环境音，做游戏感短片、空镜有新玩法",
+      "sources": [
+        {"name": "TechCrunch", "url": "https://techcrunch.com/?p=3182045"},
+        {"name": "Northeast Times", "url": "https://northeasttimes.com/2026/10/27/google-deepmind-opens-genie-4-preview-to-testers-with-audio-and-two-minute/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "phantom-blade-zero-launch",
+      "lane": "video",
+      "category": "游戏",
+      "date": "2026-10-29",
+      "status": "done",
+      "heat": 3,
+      "title": "影之刃零发售",
+      "what": "S-GAME 国产武侠动作大作，PS5 和 PC 同发",
+      "why": "国产 3A 新顶流，功夫招式和暗黑武侠风适合换脸、打斗二创",
+      "sources": [
+        {"name": "Gematsu：延期到 10 月 29 日", "url": "https://www.gematsu.com/2026/06/phantom-blade-zero-delayed-to-october-29"},
+        {"name": "LevelUp：Steam 峰值与 72 小时销量", "url": "https://www.levelup.com/en/news/neither-forza-horizon-6-nor-resident-evil-requiem-phantom-blade-zero-is-steams-biggest-launch-of-2026-and-it-has-already-sold-millions-of-copies-on-consoles-and-pc/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "gpt-6-2-astra-sighting",
+      "lane": "ai",
+      "category": "模型",
+      "date": "2026-10-31",
+      "status": "unconfirmed",
+      "heat": 2,
+      "title": "GPT-6.2 Astra 疑似露出",
+      "what": "部分 Codex 用户在用量统计里看到 gpt-6.2-astra 这个模型名，OpenAI 还没公布，也没有上线日期。",
+      "why": "真上线的话就是 OpenAI 新旗舰，正式发布那天会刷屏，可以提前备好对比测评的选题。",
+      "sources": [
+        {"name": "TestingCatalog", "url": "https://www.testingcatalog.com/gpt-6-2-astra-appears-codex-usage/"},
+        {"name": "Decrypt", "url": "https://decrypt.co/382390/claude-mythos-fable-5-5-gpt-6-2-astra-leaks"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "gta6-launch",
+      "lane": "video",
+      "category": "游戏",
+      "date": "2026-11-19",
+      "status": "scheduled",
+      "heat": 3,
+      "title": "GTA6 发售",
+      "what": "Rockstar《侠盗猎车手 VI》，罪城回归，PS5 和 Xbox 首发",
+      "why": "全球最大游戏发售，主角雌雄大盗和罪城街头适合换脸翻拍、玩梗",
+      "sources": [
+        {"name": "Rockstar Newswire：GTA VI 定于 2026-11-19", "url": "https://www.rockstargames.com/newswire/article/ak3ak31a49a221/grand-theft-auto-vi-is-now-set-to-launch-november-19-2026"},
+        {"name": "Rockstar 官网 GTA VI 页", "url": "https://www.rockstargames.com/VI"},
+        {"name": "Push Square：PS5 容量 212GB、预载 11 月 10 日", "url": "https://www.pushsquare.com/news/2026/11/gta-6-ps5-file-size-confirmed-to-be-212gb-physical-map-available-but-not-in-boxed-copies"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "the-game-awards-2026",
+      "lane": "video",
+      "category": "游戏",
+      "date": "2026-12-10",
+      "status": "scheduled",
+      "heat": 2,
+      "title": "TGA 2026 颁奖典礼",
+      "what": "游戏界的「奥斯卡」，洛杉矶时间 12 月 10 日晚（北京 11 日上午），同场放一批新作首曝。",
+      "why": "年度游戏之争加一晚首曝预告，评选结果和新预告都能蹭",
+      "sources": [
+        {"name": "The Game Awards 官网", "url": "https://thegameawards.com/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "avengers-doomsday",
+      "lane": "video",
+      "category": "电影",
+      "date": "2026-12-16",
+      "status": "scheduled",
+      "heat": 3,
+      "title": "复联 5：毁灭之日",
+      "what": "罗素兄弟执导，唐尼回归演反派毁灭博士。内地 12 月 16 日上映，比北美早两天。",
+      "why": "老复联、X 战警、神奇四侠同框，角色和名场面最多的二创大热点。",
+      "sources": [
+        {"name": "潮新闻（内地定档）", "url": "https://tidenews.com.cn/news.html?id=3583039"},
+        {"name": "The A.V. Club（北美 12.18）", "url": "https://avclub.com/avengers-doomsday-dune-part-three-same-day-release-december-18"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "dune-part-three",
+      "lane": "video",
+      "category": "电影",
+      "date": "2026-12-18",
+      "status": "scheduled",
+      "heat": 2,
+      "title": "沙丘 3",
+      "what": "维伦纽瓦《沙丘》三部曲终章，北美和复联 5 同一天上映，内地 12 月 31 日。",
+      "why": "沙虫、沙漠军团是 AI 科幻大片标配，和复联同日撞档话题大。",
+      "sources": [
+        {"name": "The A.V. Club", "url": "https://avclub.com/avengers-doomsday-dune-part-three-same-day-release-december-18"},
+        {"name": "搜狐娱乐（内地定档）", "url": "https://m.sohu.com/a/1090520394_114733/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "harry-potter-hbo-series",
+      "lane": "video",
+      "category": "剧集",
+      "date": "2026-12-25",
+      "status": "scheduled",
+      "heat": 3,
+      "title": "剧版《哈利·波特》",
+      "what": "HBO 重拍的哈利·波特剧集，第一季对应《魔法石》。",
+      "why": "新三人组选角和霍格沃茨必被拿来对比，AI 换脸、仿拍会扎堆。",
+      "sources": [
+        {"name": "Variety Australia", "url": "https://au.variety.com/2026/tv/news/harry-potter-trailer-hbo-release-date-ron-hermione-34643/"},
+        {"name": "The Washington Times", "url": "https://m.washingtontimes.com/news/2026/mar/25/hbo-drops-first-harry-potter-trailer-sets-christmas-day-premiere/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "ces-2027",
+      "lane": "ai",
+      "category": "大会",
+      "date": "2027-01-06",
+      "status": "scheduled",
+      "heat": 2,
+      "title": "CES 2027",
+      "what": "拉斯维加斯消费电子展，AI 硬件、AI PC、机器人集中亮相",
+      "why": "AI 新硬件盘点、黑科技合集是每年 1 月最好蹭的流量",
+      "sources": [
+        {"name": "CES 官方", "url": "https://www.ces.tech/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "ananta-global-launch",
+      "lane": "video",
+      "category": "游戏",
+      "date": "2027-01-15",
+      "status": "scheduled",
+      "heat": 2,
+      "title": "无限大全球上线",
+      "what": "网易都市开放世界二次元新作，PC、PS5、手机同发",
+      "why": "被叫「二次元 GTA」，都市跑酷、城市乱斗名场面适合二创",
+      "sources": [
+        {"name": "Inven Global：2027-01-15 全球上线", "url": "https://www.invenglobal.com/articles/25119/neteases-ananta-to-launch-globally-on-january-15-2027"},
+        {"name": "PocketGamer.biz：预约超 1700 万", "url": "https://www.pocketgamer.biz/ananta-sets-january-2027-launch-date-as-pre-registration-passes-17m/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "spring-gala-2027",
+      "lane": "video",
+      "category": "大事件",
+      "date": "2027-02-05",
+      "status": "scheduled",
+      "heat": 3,
+      "title": "2027 羊年春晚",
+      "what": "丁未羊年除夕夜总台春晚，次日 2 月 6 日是大年初一",
+      "why": "全年最大合家欢节点，AI 拜年、生肖羊、春晚名场面二创扎堆",
+      "sources": [
+        {"name": "IT之家：于蕾任 2027 春晚总导演", "url": "https://ithome.com/1/017/632.htm"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "wandering-earth-3",
+      "lane": "video",
+      "category": "电影",
+      "date": "2027-02-06",
+      "status": "scheduled",
+      "heat": 3,
+      "title": "流浪地球 3（上）",
+      "what": "郭帆《流浪地球》第三部上部，吴京、刘德华回归，沈腾加入。",
+      "why": "行星发动机、太空电梯等名场面是国产 AI 科幻仿拍首选素材。",
+      "sources": [
+        {"name": "每日经济新闻", "url": "https://www.nbd.com.cn/articles/2026-02-17/4264149.html"},
+        {"name": "凤凰网", "url": "https://news.ifeng.com/c/8qokzasO2rq"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "nvidia-gtc-2027",
+      "lane": "ai",
+      "category": "大会",
+      "date": "2027-03",
+      "status": "scheduled",
+      "heat": 2,
+      "title": "英伟达 GTC 2027",
+      "what": "英伟达年度 AI 大会，黄仁勋主题演讲通常发布新芯片和 AI 平台",
+      "why": "算力和新显卡决定生成成本，老黄演讲每年都是 AI 圈热点",
+      "sources": [
+        {"name": "NVIDIA GTC 官方 FAQ", "url": "https://www.nvidia.com/en-zz/gtc/faq/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "godzilla-x-kong-supernova",
+      "lane": "video",
+      "category": "电影",
+      "date": "2027-03-26",
+      "status": "scheduled",
+      "heat": 2,
+      "title": "哥斯拉×金刚：超新星",
+      "what": "传奇怪兽宇宙新作，哥斯拉与金刚再度同框。",
+      "why": "巨兽对打是 AI 视频常青题材，城市破坏和怪兽对决最出效果。",
+      "sources": [
+        {"name": "Empire", "url": "https://www.empireonline.com/movies/news/godzilla-x-kong-sequel-gets-title-release-date-and-mini-teaser-as-production-begins"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "ff7-revelation-launch",
+      "lane": "video",
+      "category": "游戏",
+      "date": "2027-04-08",
+      "status": "scheduled",
+      "heat": 2,
+      "title": "FF7 重制第三部发售",
+      "what": "《最终幻想 VII》重制三部曲完结篇 Revelation，四平台同发",
+      "why": "克劳德、蒂法、爱丽丝人气高，角色真人化和名场面重演需求大",
+      "sources": [
+        {"name": "VGC：Square Enix 确认 FF7 Revelation 发售日", "url": "https://www.videogameschronicle.com/news/square-enix-confirms-final-fantasy-7-revelation-release-date/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "google-io-2027",
+      "lane": "ai",
+      "category": "大会",
+      "date": "2027-05",
+      "status": "expected",
+      "heat": 2,
+      "title": "谷歌 I/O 2027",
+      "what": "谷歌年度开发者大会，通常发布新一代 Gemini 和 AI 产品",
+      "why": "谷歌一年最大的 AI 发布会，模型和工具更新最集中",
+      "sources": [
+        {"name": "9to5Google I/O 指南", "url": "https://9to5google.com/guides/google-io/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "devil-wears-prada-2",
+      "lane": "video",
+      "category": "电影",
+      "date": "2026-05-01",
+      "status": "done",
+      "heat": 2,
+      "title": "穿普拉达的女王 2",
+      "what": "梅姨、安妮·海瑟薇时隔 20 年回归的时尚职场续集。",
+      "why": "米兰达毒舌名场面和换装秀好仿拍，适合 AI 换脸和职场梗。",
+      "sources": [
+        {"name": "TheWrap", "url": "https://www.thewrap.com/creative-content/movies/devil-wears-prada-233-million-global-opening/"},
+        {"name": "The Walt Disney Company", "url": "https://thewaltdisneycompany.com/news/devil-wears-prada-2-box-office/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "runway-aleph-2",
+      "lane": "video",
+      "category": "视频工具",
+      "date": "2026-05-21",
+      "status": "done",
+      "heat": 2,
+      "title": "Aleph 2.0 改片模型",
+      "what": "Runway 改片模型升级：改一帧自动套到整条，最长 30 秒 1080p",
+      "why": "实拍或生成素材换颜色、换衣服、改发型不用重拍，广告改稿成本大降",
+      "sources": [
+        {"name": "Runway Changelog", "url": "https://runway.com/changelog"},
+        {"name": "Runway Aleph 2.0 产品页", "url": "https://runway.com/product/aleph-2"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "mandalorian-and-grogu",
+      "lane": "video",
+      "category": "电影",
+      "date": "2026-05-22",
+      "status": "done",
+      "heat": 2,
+      "title": "星战：曼达洛人与古古",
+      "what": "《曼达洛人》剧集的大银幕版，赏金猎人带着古古冒险。",
+      "why": "古古（尤达宝宝）本身是表情包顶流，萌宠向 AI 短片好做。",
+      "sources": [
+        {"name": "Box Office Pro", "url": "https://www.boxofficepro.com/weekend-box-office-the-mandalorian-and-grogu-leads-memorial-day-weekend/"},
+        {"name": "The Numbers", "url": "https://www.the-numbers.com/movie/Star-Wars-The-Mandalorian-and-Grogu-(2026)"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "007-first-light-launch",
+      "lane": "video",
+      "category": "游戏",
+      "date": "2026-05-27",
+      "status": "done",
+      "heat": 2,
+      "title": "007 邦德新作发售",
+      "what": "《杀手》团队 IO 做的年轻邦德起源谍战动作游戏，PS5/Xbox/PC 发售",
+      "why": "西装特工、追车、赌场名场面，适合换脸翻拍和谍战恶搞",
+      "sources": [
+        {"name": "Gematsu：007 First Light 延期到 2026-05-27", "url": "https://www.gematsu.com/2025/12/007-first-light-delayed-to-may-27-2026"},
+        {"name": "TechRadar 评测", "url": "https://www.techradar.com/gaming/007-first-light-review"},
+        {"name": "Gematsu：Switch 2 版延到 2027 年 3 月", "url": "https://www.gematsu.com/2026/09/007-first-light-for-switch-2-delayed-to-march-2027"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "minimax-m3",
+      "lane": "ai",
+      "category": "模型",
+      "date": "2026-06-01",
+      "status": "done",
+      "heat": 2,
+      "title": "MiniMax M3 发布",
+      "what": "MiniMax 新一代大模型，百万上下文，能看图看视频、操作电脑",
+      "why": "国产模型能读视频和代操作电脑，适合做批量剪辑前的素材整理",
+      "sources": [
+        {"name": "北京商报", "url": "https://www.bbtnews.com.cn/2026/0601/594920.shtml"},
+        {"name": "DataNorth", "url": "https://datanorth.ai/news/minimax-launches-m3"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "meccha-chameleon-viral",
+      "lane": "video",
+      "category": "游戏",
+      "date": "2026-06-09",
+      "status": "done",
+      "heat": 2,
+      "title": "变色龙躲猫猫爆火",
+      "what": "两人小团队做的 6 美元联机捉迷藏，给自己涂色伪装进场景",
+      "why": "伪装和找人的反转天然好笑，适合做「找找我在哪」类 AI 挑战",
+      "sources": [
+        {"name": "Steam 商店页 MECCHA CHAMELEON", "url": "https://store.steampowered.com/app/4704690/MECCHA_CHAMELEON/"},
+        {"name": "Game Developer：两周卖出 700 万份", "url": "https://www.gamedeveloper.com/business/meccha-chameleon-sells-7m-copies-in-first-two-weeks"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "house-of-the-dragon-s3",
+      "lane": "video",
+      "category": "剧集",
+      "date": "2026-06-21",
+      "status": "done",
+      "heat": 2,
+      "title": "龙之家族 第三季",
+      "what": "《权力的游戏》前传第三季，坦格利安家族龙战全面开打。",
+      "why": "巨龙空战、王座对峙画面多，是 AI 奇幻大片和龙类特效的现成参照。",
+      "sources": [
+        {"name": "TheWrap（首播收视）", "url": "https://www.thewrap.com/creative-content/tv-shows/house-of-the-dragon-season-3-premiere-ratings-hbo/"},
+        {"name": "The Express Tribune（定档）", "url": "https://tribune.com.pk/story/2605101/house-of-the-dragon-season-3-sets-june-21-release-as-new-teaser-drops"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "doubao-2-1",
+      "lane": "ai",
+      "category": "模型",
+      "date": "2026-06-23",
+      "status": "done",
+      "heat": 2,
+      "title": "豆包大模型 2.1 发布",
+      "what": "火山引擎 FORCE 大会发布豆包 2.1 Pro/Turbo，编程和智能体更强",
+      "why": "国内做视频最常用的模型底座之一，价格变动直接影响批量出稿成本",
+      "sources": [
+        {"name": "腾讯新闻", "url": "https://news.qq.com/rain/a/20260623A06ECT00"},
+        {"name": "腾讯新闻（FORCE 大会）", "url": "https://news.qq.com/rain/a/20260623A0653700"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "gpt-5-6",
+      "lane": "ai",
+      "category": "模型",
+      "date": "2026-07-09",
+      "status": "done",
+      "heat": 2,
+      "title": "GPT-5.6 三款全面开放",
+      "what": "GPT-5.6 分 Sol、Terra、Luna 三档，全面上线 ChatGPT 和 API",
+      "why": "OpenAI 从此按大中小三档起名，挑模型写稿配音时要看清档位",
+      "sources": [
+        {"name": "DataNorth", "url": "https://datanorth.ai/news/openai-releases-gpt-5-6-sol-terra-and-luna"},
+        {"name": "RuntimeWire", "url": "https://runtimewire.com/article/openai-gpt-5-6-sol-terra-luna-public-launch-july-9"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "palworld-1-0",
+      "lane": "video",
+      "category": "游戏",
+      "date": "2026-07-10",
+      "status": "done",
+      "heat": 2,
+      "title": "幻兽帕鲁 1.0 正式版",
+      "what": "抢先体验两年半后转正式版，PC、PS5、Xbox 同步上线",
+      "why": "「宝可梦拿枪打工」梗回潮，抓帕鲁、压榨打工名场面好恶搞",
+      "sources": [
+        {"name": "VGC：1.0 上线后在线人数暴涨", "url": "https://www.videogameschronicle.com/news/palworld-sees-huge-surge-in-concurrent-players-after-the-release-of-version-1-0/"},
+        {"name": "Insider Gaming：SGF 2026 公布 1.0 日期", "url": "https://insider-gaming.com/palworld-1-0-release-date-revealed-by-pocketpair-at-summer-game-fest-2026/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "waic-2026",
+      "lane": "ai",
+      "category": "大会",
+      "date": "2026-07-17",
+      "status": "done",
+      "heat": 2,
+      "title": "WAIC 2026 上海开幕",
+      "what": "世界人工智能大会在上海举行，展区首破 10 万平方米、1100 多家企业",
+      "why": "国产模型、机器人集中亮相，现场素材和新品盘点是年度固定选题",
+      "sources": [
+        {"name": "新华网", "url": "https://www.news.cn/expo/20260717/8139d73fd60645e5bb868f158c063285/c.html"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "flux-3-video",
+      "lane": "video",
+      "category": "视频模型",
+      "date": "2026-07-23",
+      "status": "done",
+      "heat": 2,
+      "title": "FLUX 3 能出视频了",
+      "what": "BFL 多模态底模，单次 20 秒带原生音频和多语对白，最高 4K",
+      "why": "最强开源图像团队进军视频，Dev 版承诺开放权重，本地生态可能再洗牌",
+      "sources": [
+        {"name": "Black Forest Labs FLUX 3", "url": "https://bfl.ai/models/flux-3"},
+        {"name": "ComfyUI Wiki 报道", "url": "https://comfyui-wiki.com/en/news/2026-07-23-flux-3-multimodal"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "jiumen-drama",
+      "lane": "video",
+      "category": "剧集",
+      "date": "2026-07-30",
+      "status": "done",
+      "heat": 2,
+      "title": "九门",
+      "what": "优酷独播悬疑奇幻冒险剧，讲张大佛爷、吴老狗等老九门人物。",
+      "why": "老九门 IP 粉丝基础大，奇幻冒险场面多，是三季度国产剧播放冠军。",
+      "sources": [
+        {"name": "扬子晚报（云合 2026Q3 报告）", "url": "https://www.yzwb.net/news/wy/202610/t20261011_401518.html"},
+        {"name": "楚天都市报", "url": "https://www.ctdsb.net/c1742_202608/2819056.html"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "ltx-2-5-open",
+      "lane": "video",
+      "category": "开源",
+      "date": "2026-08-11",
+      "status": "done",
+      "heat": 2,
+      "title": "LTX-2.5 开源",
+      "what": "Lightricks 22B 音视频开源模型，4K HDR、多镜头、自动定时长",
+      "why": "年收入千万美元以下可免费商用，本地出 4K 带声片多一个选择",
+      "sources": [
+        {"name": "Hugging Face Lightricks/LTX-2.5", "url": "https://huggingface.co/Lightricks/LTX-2.5"},
+        {"name": "LTX-2 CHANGELOG", "url": "https://github.com/Lightricks/LTX-2/blob/main/CHANGELOG.md"},
+        {"name": "ComfyUI Wiki 报道", "url": "https://comfyui-wiki.com/en/news/2026-08-11-ltx-2-5-open-weights-release"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "genshin-7-0-snezhnaya",
+      "lane": "video",
+      "category": "游戏",
+      "date": "2026-08-12",
+      "status": "done",
+      "heat": 2,
+      "title": "原神至冬版本上线",
+      "what": "原神 7.0 开放第七国至冬，主线走进愚人众老家",
+      "why": "米哈游顶流 IP 的新国家新角色，二次元换装、cos 翻拍需求集中",
+      "sources": [
+        {"name": "HoYoverse 官方新闻：8 月 12 日登陆至冬", "url": "https://www.hoyoverse.com/en-us/news/165689"},
+        {"name": "Inven Global：至冬 8 月 12 日更新", "url": "https://www.invenglobal.com/articles/21293/genshin-impact-announces-new-region-snezhnaya-for-august-12-release"},
+        {"name": "Notebookcheck：7.0 于 8 月 12 日上线", "url": "https://www.notebookcheck.net/Genshin-Impact-version-7-0-update-brings-Travelers-to-Snezhnaya-on-August-12.1349304.0.html"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "minimax-music-3-open",
+      "lane": "video",
+      "category": "配音音乐",
+      "date": "2026-08-13",
+      "status": "done",
+      "heat": 2,
+      "title": "MiniMax 音乐模型开源",
+      "what": "Music 3.0 开放权重，按歌词和描述一次出完整歌，最长 5 分钟",
+      "why": "配乐和 MV 用歌能本地生成，不再只靠 Suno 按月付费",
+      "sources": [
+        {"name": "MiniMax 官方博客", "url": "https://www.minimax.io/blog/minimax-music-3-0-next-generation-open-weights-production-ready-versatile-music-model"},
+        {"name": "Hugging Face MiniMaxAI/MiniMax-Music3", "url": "https://huggingface.co/MiniMaxAI/MiniMax-Music3"},
+        {"name": "ComfyUI Wiki 报道", "url": "https://comfyui-wiki.com/en/news/2026-08-13-minimax-music3"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "ios-27-siri-ai",
+      "lane": "ai",
+      "category": "产品",
+      "date": "2026-09-14",
+      "status": "done",
+      "heat": 2,
+      "title": "iOS 27 推送 Siri AI",
+      "what": "iOS 27 正式推送，新 Siri AI 以测试版登陆 iPhone 15 Pro 起",
+      "why": "上亿 iPhone 用上新 Siri，上手体验、对比测评有流量",
+      "sources": [
+        {"name": "Engadget", "url": "https://www.engadget.com/2254005/ios-27-with-siri-ai-will-be-available-on-september-14"},
+        {"name": "TechNews 科技新报", "url": "https://technews.tw/2026/09/10/ios-27-launches-on-september-14th-with-siri-ai/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "marvels-wolverine-launch",
+      "lane": "video",
+      "category": "游戏",
+      "date": "2026-09-15",
+      "status": "done",
+      "heat": 2,
+      "title": "漫威金刚狼发售",
+      "what": "Insomniac 做的 PS5 独占《漫威金刚狼》动作游戏",
+      "why": "金刚狼爪击、狂暴名场面，适合换脸、打斗二创和漫威混剪",
+      "sources": [
+        {"name": "PlayStation Blog：State of Play 确认 9 月 15 日", "url": "https://blog.playstation.com/2026/06/02/marvels-wolverine-new-gameplay-story-details-from-state-of-play/"},
+        {"name": "Beebom：首三日约 190 万份（Alinea 估算）", "url": "https://beebom.com/marvels-wolverine-sold-1-9-million-copies-in-three-days-behind-spider-man-2/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "resident-evil-2026",
+      "lane": "video",
+      "category": "电影",
+      "date": "2026-09-18",
+      "status": "done",
+      "heat": 2,
+      "title": "新版《生化危机》",
+      "what": "恐怖片导演扎克·克雷格重启的《生化危机》真人电影。",
+      "why": "丧尸和游戏角色辨识度高，AI 恐怖短片、游戏改编梗好做。",
+      "sources": [
+        {"name": "ABC News", "url": "https://abcnews.com/Entertainment/wireStory/box-office-resident-evil-tops-box-office-franchise-136601474"},
+        {"name": "Dread Central", "url": "https://www.dreadcentral.com/box-office/589399/resident-evil-blows-past-projections-with-108-3-million-worldwide-opening/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "apsara-qwen-3-8",
+      "lane": "ai",
+      "category": "大会",
+      "date": "2026-09-22",
+      "status": "done",
+      "heat": 2,
+      "title": "云栖大会 Qwen3.8-Max",
+      "what": "阿里发布 Qwen3.8-Max 和全模态 Omni，称 Qwen4 正在训练",
+      "why": "千问配音、识图、全模态模型一起升级，国内做视频的人能直接用",
+      "sources": [
+        {"name": "量子位", "url": "https://www.qbitai.com/2026/09/493625.html"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "claude-opus-5-5",
+      "lane": "ai",
+      "category": "模型",
+      "date": "2026-09-22",
+      "status": "done",
+      "heat": 2,
+      "title": "Claude Opus 5.5 发布",
+      "what": "Claude 5.5 家族首款，接近 Fable 5.1，成本比 Opus 5 低四成",
+      "why": "用更低价格拿到接近顶级的写作和编程能力，批量写稿更划算",
+      "sources": [
+        {"name": "Anthropic 官方", "url": "https://www.anthropic.com/news/claude-opus-5-5"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "eleven-v4",
+      "lane": "video",
+      "category": "配音音乐",
+      "date": "2026-09-28",
+      "status": "done",
+      "heat": 2,
+      "title": "Eleven v4 配音模型",
+      "what": "ElevenLabs 情绪最强的 TTS，90 多种语言，跨语种保音色，延迟更低",
+      "why": "英文出海片旁白更像真人，能用标签和自然语言指导语气",
+      "sources": [
+        {"name": "ElevenLabs 官方博客", "url": "https://elevenlabs.io/blog/eleven-v4"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "openai-devday-2026",
+      "lane": "ai",
+      "category": "大会",
+      "date": "2026-09-29",
+      "status": "done",
+      "heat": 2,
+      "title": "OpenAI DevDay 2026",
+      "what": "发布 GPT-6.1 Sol、常驻云端智能体 Dots 和 500 美元套餐",
+      "why": "ChatGPT 能挂常驻智能体替你跑活，自动化内容流程的新工具",
+      "sources": [
+        {"name": "OpenAI 官方回顾", "url": "https://openai.com/index/devday-2026-recap/"},
+        {"name": "Agentpedia 汇总", "url": "https://agentpedia.codes/blog/openai-devday-2026-everything-announced"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "dragon-ball-super-beerus",
+      "lane": "video",
+      "category": "动画",
+      "date": "2026-10-11",
+      "status": "done",
+      "heat": 2,
+      "title": "龙珠超：比鲁斯",
+      "what": "龙珠官方重制的 TV 动画，重讲破坏神比鲁斯登场的「神与神」篇。",
+      "why": "悟空和破坏神对打全民熟，AI 动漫打斗、真人化仿拍常用素材。",
+      "sources": [
+        {"name": "Siliconera", "url": "https://www.siliconera.com/dragon-ball-super-beerus-anime-launch-date-set/"},
+        {"name": "Toei Animation 官方页", "url": "https://www.toei-animation.com/dragon-ball-super-beerus/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "pika-h3-flex",
+      "lane": "video",
+      "category": "开源",
+      "date": "2026-10-29",
+      "status": "done",
+      "heat": 2,
+      "title": "Pika H3 Flex 开源",
+      "what": "Pika 在 MiniMax H3 上训的 6 步加速 LoRA，本地 5–15 秒 768p 带声。",
+      "why": "本地出片步数从 50 降到 6，同样的显卡快好几倍",
+      "sources": [
+        {"name": "Pika 官方博客", "url": "https://pika.art/blog/pika-h3-flex"},
+        {"name": "Hugging Face Pika-Labs/Pika-H3-Flex", "url": "https://huggingface.co/Pika-Labs/Pika-H3-Flex"},
+        {"name": "Pika 官方 X", "url": "https://x.com/pika_labs/status/2115860471215788262"},
+        {"name": "ComfyUI Wiki 报道", "url": "https://comfyui-wiki.com/en/news/2026-10-29-pika-h3-flex"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "deepseek-creator-mode",
+      "lane": "ai",
+      "category": "产品",
+      "date": "2026-11-02",
+      "status": "done",
+      "heat": 2,
+      "title": "DeepSeek 创作者模式",
+      "what": "Harness 新增创作者模式，聊天就能做插件，演示了视频编辑器",
+      "why": "不写代码也能让 AI 搭小工具，比如自制剪辑面板、海报工具",
+      "sources": [
+        {"name": "Bloomberg", "url": "https://www.bloomberg.com/news/articles/2026-11-02/deepseek-boosts-ai-agent-offering-with-new-creator-mode"},
+        {"name": "TechNode", "url": "https://technode.com/2026/11/03/deepseek-showcases-creator-mode-for-building-custom-plugins-through-conversation/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "hunger-games-sunrise-on-the-reaping",
+      "lane": "video",
+      "category": "电影",
+      "date": "2026-11-20",
+      "status": "scheduled",
+      "heat": 2,
+      "title": "饥饿游戏新前传",
+      "what": "《饥饿游戏》前传，讲年轻的黑密斯参加第 50 届饥饿游戏。",
+      "why": "原作粉多，竞技场生存和造型服装适合 AI 预告片仿制。",
+      "sources": [
+        {"name": "ComingSoon", "url": "https://comingsoon.net/movies/news/1755992-sunrise-on-the-reaping-movie-release-date-set-for-hunger-games-prequel"},
+        {"name": "Dark Horizons（正式预告）", "url": "https://www.darkhorizons.com/?p=194565"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "aws-reinvent-2026",
+      "lane": "ai",
+      "category": "大会",
+      "date": "2026-11-30",
+      "status": "scheduled",
+      "heat": 1,
+      "title": "AWS re:Invent 2026",
+      "what": "亚马逊云年度大会，在拉斯维加斯举行，主打 AI 和云服务",
+      "why": "亚马逊自家模型和 AI 工具常在这里发布，适合做大会盘点",
+      "sources": [
+        {"name": "AWS 官方", "url": "https://aws.amazon.com/events/reinvent"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "eu-ai-act-dec-2026",
+      "lane": "ai",
+      "category": "政策",
+      "date": "2026-12-02",
+      "status": "scheduled",
+      "heat": 2,
+      "title": "欧盟 AI 法案新禁令生效",
+      "what": "欧盟禁止用 AI 生成逼真私密影像和儿童性虐待内容的系统",
+      "why": "AI 换脸、生图生视频的红线更硬，发欧洲平台要格外注意",
+      "sources": [
+        {"name": "National Law Review", "url": "https://natlawreview.com/article/eu-digital-omnibus-ai-enters-force"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "genie-4-ultra-rollout",
+      "lane": "ai",
+      "category": "产品",
+      "date": "2026-Q4",
+      "status": "expected",
+      "heat": 2,
+      "title": "Genie 4 开放 Ultra 用户",
+      "what": "谷歌称几周内向 AI Ultra 订阅用户和 API 早期伙伴开放",
+      "why": "普通创作者能真正上手世界模型，第一批体验视频有流量",
+      "sources": [
+        {"name": "TechCrunch", "url": "https://techcrunch.com/?p=3182045"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "narnia-magicians-nephew",
+      "lane": "video",
+      "category": "电影",
+      "date": "2027-02-12",
+      "status": "scheduled",
+      "heat": 2,
+      "title": "纳尼亚：魔法师的外甥",
+      "what": "格蕾塔·葛韦格执导、Netflix 出品的新版《纳尼亚传奇》。",
+      "why": "狮王阿斯兰和魔法世界奇观多，AI 奇幻场景、预告仿制素材足。",
+      "sources": [
+        {"name": "Variety Australia", "url": "https://au.variety.com/2026/film/news/greta-gerwig-narnia-netflix-release-date-36132/"},
+        {"name": "Screen Daily", "url": "https://www.screendaily.com/news/amc-cinema-united-praise-wide-theatrical-release-window-as-netflix-pushes-narnia-to-february-2027/5216217.article"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "star-wars-starfighter",
+      "lane": "video",
+      "category": "电影",
+      "date": "2027-05-28",
+      "status": "scheduled",
+      "heat": 2,
+      "title": "星战：星际战机",
+      "what": "瑞恩·高斯林主演、肖恩·利维执导的星球大战新电影。",
+      "why": "高斯林本人梗多，飞船竞速和光剑场面适合 AI 预告恶搞。",
+      "sources": [
+        {"name": "StarWars.com", "url": "https://www.starwars.com/films/star-wars-starfighter"},
+        {"name": "Variety Australia", "url": "https://au.variety.com/2026/film/news/star-wars-starfighter-trailer-ryan-gosling-39449/"}
+      ],
+      "checked": "2026-11-04"
+    }
+  ],
+  "parked": [
+    {
+      "id": "musk-v-openai-verdict",
+      "lane": "ai",
+      "category": "行业",
+      "date": "2026-05-18",
+      "status": "done",
+      "heat": 2,
+      "title": "马斯克告 OpenAI 败诉",
+      "what": "加州联邦陪审团一致裁定马斯克起诉太晚，OpenAI 和奥特曼不担责",
+      "why": "AI 圈最大八卦之一，马斯克对奥特曼的恩怨可做解说和梗图",
+      "sources": [
+        {"name": "Al Jazeera", "url": "https://www.aljazeera.com/news/2026/5/18/elon-musk-loses-lawsuit-against-openai"},
+        {"name": "Fox Business", "url": "https://www.foxbusiness.com/technology/musk-altman-openai-lawsuit-trial-verdict"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "china-anthropomorphic-ai-rules",
+      "lane": "ai",
+      "category": "政策",
+      "date": "2026-07-15",
+      "status": "done",
+      "heat": 2,
+      "title": "拟人化 AI 互动新规施行",
+      "what": "网信办等五部门的拟人化互动服务办法生效，禁止诱导情感依赖",
+      "why": "做 AI 陪伴、虚拟人、AI 女友类账号和产品要对照的规矩",
+      "sources": [
+        {"name": "新华网（施行）", "url": "https://www.news.cn/20260715/9f31cb58502b4b8c8261ad0a3c253499/c.html"},
+        {"name": "新华网（公布）", "url": "https://www.news.cn/politics/20260410/bc2a2172b4d64a539cf253e75044b494/c.html"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "minimax-h3-launch",
+      "lane": "video",
+      "category": "视频模型",
+      "date": "2026-07-31",
+      "status": "done",
+      "heat": 2,
+      "title": "MiniMax H3 发布",
+      "what": "接替海螺的全模态视频模型，15 秒 2K 原生立体声，可图、视频、音频参考",
+      "why": "2K 每秒价格不到主流三分之一，768p 不到一半，压低整个市场价",
+      "sources": [
+        {"name": "MiniMax 官方博客", "url": "https://www.minimax.io/blog/minimax-h3"},
+        {"name": "ComfyUI Wiki 报道", "url": "https://comfyui-wiki.com/en/news/2026-07-31-minimax-h3-omni-modal-video"},
+        {"name": "36氪（转载）", "url": "https://eu.36kr.com/en/p/3923196846894725"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "welcome-to-dragon-restaurant",
+      "lane": "video",
+      "category": "电影",
+      "date": "2026-08-11",
+      "status": "done",
+      "heat": 2,
+      "title": "欢迎来龙餐馆",
+      "what": "文牧野执导、沈腾主演的反战题材剧情片。",
+      "why": "沈腾新作国民度高，台词和表情包式名场面适合仿拍、换脸。",
+      "sources": [
+        {"name": "杭州网", "url": "https://hznews.hangzhou.com.cn/wenti/content/2026-08/11/content_9277200.htm"},
+        {"name": "封面新闻（暑期档收官数据）", "url": "https://cbgc.scol.com.cn/news/7909107"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "kling-4-api",
+      "lane": "video",
+      "category": "视频工具",
+      "date": "2026-10-22",
+      "status": "done",
+      "heat": 2,
+      "title": "可灵 4.0 API 开放",
+      "what": "可灵官方宣布 4.0 API 开始放量，第三方平台随即接入 30 秒带声生成",
+      "why": "Higgsfield、Luma 等平台能直接调 4.0，批量出片不必守着网页端",
+      "sources": [
+        {"name": "可灵官方 X", "url": "https://x.com/Kling_ai/status/2112946255257084260"},
+        {"name": "Luma 接入公告", "url": "https://lumalabs.ai/news/kling-4-in-luma-ai-video"},
+        {"name": "AIReiter（API 状态整理）", "url": "https://aireiter.com/blog/kling-4-api-availability"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "seedance-2-5-4k",
+      "lane": "video",
+      "category": "视频模型",
+      "date": "2026-10-23",
+      "status": "done",
+      "heat": 2,
+      "title": "Seedance 2.5 4K 版",
+      "what": "Seedance 2.5 家族最强版本，表情动作更细、画面细节更多，带草稿模式",
+      "why": "10 月下旬海外刷屏的就是它，先用草稿试，再出 4K 成片更省钱",
+      "sources": [
+        {"name": "BytePlus 官方 X", "url": "https://x.com/BytePlusGlobal/status/2113654442885292359"},
+        {"name": "ComfyUI Wiki（Draft 模式）", "url": "https://comfyui-wiki.com/en/news/2026-09-25-seedance-2-5-draft-mode"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "neurips-2026",
+      "lane": "ai",
+      "category": "大会",
+      "date": "2026-12-06",
+      "status": "scheduled",
+      "heat": 1,
+      "title": "NeurIPS 2026",
+      "what": "全球顶级 AI 学术会议，今年主会场在悉尼，亚特兰大和巴黎设分会场",
+      "why": "新论文和研究演示集中出炉，适合做「AI 新技术速览」类内容",
+      "sources": [
+        {"name": "NeurIPS 官方日程", "url": "https://neurips.cc/Conferences/2026/Dates"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "flux-3-dev-open",
+      "lane": "video",
+      "category": "开源",
+      "date": "2026-Q4",
+      "status": "expected",
+      "heat": 2,
+      "title": "FLUX 3 Dev 开源",
+      "what": "BFL 承诺开放 FLUX 3 Dev 多模态底座权重，覆盖图像、视频和音频",
+      "why": "兑现的话，会是继 H3 之后又一个能本地出带声视频的大底模",
+      "sources": [
+        {"name": "Black Forest Labs FLUX 3", "url": "https://bfl.ai/models/flux-3"},
+        {"name": "ComfyUI Wiki 报道", "url": "https://comfyui-wiki.com/en/news/2026-07-23-flux-3-multimodal"}
+      ],
+      "checked": "2026-11-04"
+    }
+  ]
+}

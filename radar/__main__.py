@@ -117,6 +117,8 @@ def main(argv=None) -> int:
         day = a.day or (db.brief_days(con) or [None])[0]
         row = con.execute("SELECT payload FROM briefs WHERE day=?", (day,)).fetchone()
         if not row:
+            if render.write_timeline():   # the timeline needs no issue
+                print("rendered timeline")
             print("no brief for", day, file=sys.stderr)
             return 1
         brief = json.loads(row["payload"])

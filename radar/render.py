@@ -1,4 +1,5 @@
-"""Static site: index.html (latest day), d/<day>.html per day, data/<day>.json.
+"""Static site: index.html (latest day), d/<day>.html per day, data/<day>.json, and the hot timeline
+(timeline/index.html, data/timeline.json, data/youtube-history.json) from the files in RADAR_TIMELINE_DIR.
 
 Server-rendered HTML; a little JS swaps a thumbnail for the platform's player on click (so a page
 with forty videos loads forty images, not forty players), filters labels and tracks the tabs.
@@ -12,9 +13,11 @@ import html
 import json
 import os
 import re
-from datetime import datetime, timedelta, timezone
+import shutil
+import sys
+from datetime import date, datetime, timedelta, timezone
 
-from . import config, db, share
+from . import config, db, share, timeline
 from .score import fmt_num
 
 WEEK = "一二三四五六日"
@@ -446,6 +449,10 @@ a:focus-visible,button:focus-visible,select:focus-visible,summary:focus-visible{
 .brand-mark{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--brand-500),var(--brand-deep));display:grid;place-items:center}
 .brand small{font-weight:500;color:var(--muted);font-size:13px}
 .daypick{margin-left:auto;display:flex;align-items:center;gap:6px}
+.nav-tl{margin-left:auto;display:inline-flex;align-items:center;height:36px;padding:0 12px;border-radius:var(--r-sm);color:var(--text-2);font-size:14px;font-weight:600;white-space:nowrap}
+.nav-tl:hover{color:var(--brand-deep);background:var(--brand-50)}.nav-tl+.daypick{margin-left:0}
+.mast-tl{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:650;color:var(--brand-700);background:#fff;border:1px solid var(--brand-100);border-radius:999px;padding:3px 11px}
+.mast-tl:hover{border-color:var(--brand-500);color:var(--brand-deep)}
 .daypick a,.daypick select{height:36px;min-width:40px;border:1px solid var(--border);background:#fff;border-radius:var(--r-sm);display:inline-grid;place-items:center;color:var(--text-2);font:inherit;font-size:14px;padding:0 10px;cursor:pointer}
 .daypick a[aria-disabled=true]{color:#b5babf;pointer-events:none}
 .mast{background:radial-gradient(circle at 8% 0%,rgba(54,165,144,.18),transparent 36%),radial-gradient(circle at 92% 10%,rgba(40,119,199,.08),transparent 30%),linear-gradient(135deg,#f5fffc 0%,#f8fbff 58%,#fffaf0 100%);border-bottom:1px solid var(--border)}
@@ -629,6 +636,7 @@ html.sd-lock{overflow:hidden}
 @media (max-width:1024px){.about{grid-template-columns:1fr 1fr}.about-col:first-child{grid-column:1/-1}}
 @media (max-width:1024px){.tweets{grid-template-columns:repeat(2,minmax(0,1fr))}.repos{grid-template-columns:repeat(2,minmax(0,1fr))}.hl.lead{grid-template-columns:1fr}}
 @media (max-width:760px){.nav-in,.wrap,.tabs-in{padding:0 16px}.brand small{display:none}
+.nav-tl{display:none}.nav-tl+.daypick{margin-left:auto}
 .mast .wrap{padding-top:18px;padding-bottom:16px}.mast h1{font-size:23px;margin-top:10px}.mast .lead{font-size:15px}
 .rise{font-size:13.5px}.about{grid-template-columns:1fr}
 .hl-grid{grid-template-columns:1fr;gap:12px}.hl,.hl.lead{padding:10px 10px 16px;gap:12px}.hl-body{padding:0 4px}.hl h3,.hl.lead h3{font-size:18px}
@@ -946,6 +954,7 @@ def page(brief: dict, days: list[str], at_root: bool = False, deep_ids: set | No
     body = "".join(f'<section class="block" id="{sid}">{_sec(i + 1, sid, title, sub, extra)}{html_}</section>'
                    for i, (sid, title, sub, html_, extra) in enumerate(blocks))
     scan = _scan_line(brief, videos, xs)
+    tl_on = timeline_on()
     return f"""<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(config.SITE_NAME)} · {e(day)}</title><meta name="robots" content="noindex">
@@ -954,6 +963,7 @@ def page(brief: dict, days: list[str], at_root: bool = False, deep_ids: set | No
 <body>
 <nav class="nav"><div class="nav-in">
   <a class="brand" href="{home}">{LOGO}{e(config.SITE_NAME)}<small>{e(_by(" · "))}每日</small></a>
+  {f'<a class="nav-tl" href="{home}timeline/">热点时间线</a>' if tl_on else ''}
   <div class="daypick">
     <a href="{(dpath + e(older) + '.html') if older else '#'}" aria-label="前一天" aria-disabled="{'false' if older else 'true'}">‹</a>
     <select id="daysel" aria-label="选择日期">{options}</select>
@@ -962,7 +972,8 @@ def page(brief: dict, days: list[str], at_root: bool = False, deep_ids: set | No
 </div></nav>
 <header class="mast"><div class="wrap">
   <div class="mast-top"><span class="eyebrow">每日 AI 视频情报 · 第 {issue} 期</span>
-    <span class="mast-date">{d.month} 月 {d.day} 日 星期{WEEK[d.weekday()]} · 北京时间 {e((brief.get('generated_bj') or '')[-5:])} 更新</span></div>
+    <span class="mast-date">{d.month} 月 {d.day} 日 星期{WEEK[d.weekday()]} · 北京时间 {e((brief.get('generated_bj') or '')[-5:])} 更新</span>
+    {f'<a class="mast-tl" href="{home}timeline/">热点时间线：前后各半年的大事 →</a>' if tl_on else ''}</div>
   <h1>今天值得看的 AI 信号</h1>
   {f'<p class="lead">{e(brief.get("summary"))}</p>' if brief.get('summary') else ''}
   {_rising(sec.get("video") or [], sec.get("x") or [])}
@@ -1093,6 +1104,349 @@ def deep_page(dp: dict, brief: dict) -> str:
 </body></html>"""
 
 
+# ------------------------------------------------------------------ hot timeline page (radar/timeline.py has the pieces)
+
+TIMELINE_CSS = """
+:where(.tlp main) :where(p,h2,h3,h4,ol,ul){margin:0}:where(.tlp main) :where(ol,ul){padding:0;list-style:none}
+.tlp{--top:56px;--mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;--warm:#e3a21a;--warm-2:#f4b740;--warm-bg:#fff6db;--warm-ink:#7a4f00;
+--accent:var(--brand-700);--accent-bg:var(--brand-50);--accent-line:var(--brand-500);scroll-padding-top:72px}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--brand-700);font-weight:600;margin-bottom:8px}.back:hover{color:var(--brand-deep)}
+.tl-meta,.tl-jump{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.tl-meta span{padding:3px 11px;border-radius:999px;border:1px solid var(--border);background:#fff;color:var(--text-2);font-family:var(--mono);font-size:12.5px}
+.tl-jump a{display:inline-flex;align-items:center;min-height:38px;padding:0 15px;border-radius:999px;border:1px solid var(--border);background:#fff;color:var(--text-2);font-size:14px;font-weight:620;box-shadow:var(--shadow-sm)}
+.tl-jump a:hover{border-color:var(--brand-500);color:var(--brand-deep)}
+/* a lane: its own band so the two never read as one list */
+.lane-sec{padding:40px 0 20px;scroll-margin-top:var(--top)}
+.lane-sec+.lane-sec{border-top:1px solid var(--border)}
+.lane-sec.lane-video{background:linear-gradient(180deg,rgba(54,165,144,.08),transparent 320px)}
+.lane-sec.lane-ai{--accent:#4353c4;--accent-bg:#eef0ff;--accent-line:#8591ee;background:linear-gradient(180deg,rgba(67,83,196,.06),transparent 320px)}
+.kicker{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--accent)}
+.lane-head h2{margin-top:6px;font-size:30px;font-weight:780;letter-spacing:.01em;line-height:1.3}
+.lane-desc{margin-top:6px;max-width:720px;font-size:15px;color:var(--text-2)}
+.lane-sub{margin-top:30px;font-size:18px;font-weight:740}
+.lane-sub+*{margin-top:12px}
+.lane-note{color:var(--muted);font-size:13.5px}.lane-note+.hs-wrap{margin-top:12px}
+/* text cover for an event without a picture */
+.ph{background:linear-gradient(135deg,#dff6f0,#a5dccf);color:var(--brand-deep)}
+.ph.lane-ai{background:linear-gradient(135deg,#e8ebff,#bcc4f6);color:#2f3a9e}
+.ph b{font-size:15px;font-weight:800;letter-spacing:.08em}
+/* the next big ones: cover on top, days to go over it */
+.nxs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.nx{position:relative;display:flex;flex-direction:column;min-width:0;border-radius:var(--r-lg);border:1px solid var(--border);background:#fff;box-shadow:var(--shadow-sm);overflow:hidden;transition:border-color .2s,transform .2s,box-shadow .2s}
+.nx:hover{border-color:var(--accent-line);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.nx-img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.nx-body{display:flex;flex-direction:column;gap:4px;padding:12px 18px 16px}
+.nx-big{position:absolute;top:12px;left:12px;display:flex;align-items:baseline;gap:5px;padding:6px 12px 7px;border-radius:12px;background:rgba(13,21,23,.8)}
+.nx-n{font-family:var(--mono);font-size:30px;font-weight:800;line-height:1;letter-spacing:-.03em;color:#fff;font-variant-numeric:tabular-nums}
+.nx-n.sm{font-family:inherit;font-size:15px;letter-spacing:0}
+.nx-u{color:rgba(255,255,255,.86);font-size:13.5px}
+.nx-title{font-size:18px;font-weight:740;line-height:1.35}
+.nx-date{color:var(--muted);font-family:var(--mono);font-size:12.5px}
+/* the year: one card per month, swiped sideways */
+.hs-wrap{position:relative}
+.hs{overflow-x:auto;overflow-y:hidden;padding:2px 2px 10px;scrollbar-width:thin;scrollbar-color:var(--border-strong) transparent;scroll-behavior:smooth}
+.hs:focus-visible{outline:2px solid var(--brand-600);outline-offset:2px;border-radius:12px}
+.hs-grid{display:flex;align-items:flex-start;gap:10px;width:max-content}
+.hs-col{display:flex;flex-direction:column;flex:none;width:236px;border:1px solid var(--border);border-radius:14px;background:#fff;box-shadow:var(--shadow-sm);overflow:hidden}
+.hs-col.w2{width:460px}
+.hs-col.empty{width:92px;background:none;border-style:dashed;box-shadow:none}
+.hs-col.now{border-color:var(--warm);box-shadow:inset 3px 0 0 var(--warm),var(--shadow-sm)}
+.hs-m{display:flex;align-items:center;gap:8px;height:42px;padding:0 14px;border-bottom:1px solid var(--border);background:var(--accent-bg)}
+.hs-m b{font-size:15px;font-weight:740;color:var(--text);white-space:nowrap}
+.hs-col.gone .hs-m{background:var(--subtle)}.hs-col.gone .hs-m b{color:var(--muted);font-weight:650}
+.hs-col.now .hs-m{background:var(--warm-bg)}
+.hs-col.empty .hs-m{border-bottom:0;background:none}.hs-col.empty .hs-m b{color:var(--muted);font-weight:600}
+.hs-now{padding:2px 10px;border-radius:999px;background:var(--warm-2);color:#2e1f00;font-size:12.5px;font-weight:780;white-space:nowrap}
+.hs-items{display:flex;flex-direction:column;gap:6px;padding:10px}.hs-items:empty{display:none}
+.hs-col.w2 .hs-items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.hs-ev{display:flex;align-items:center;gap:10px;min-width:0;padding:5px;border-radius:10px;border:1px solid var(--border);background:var(--subtle);transition:border-color .2s}
+.hs-ev:hover{border-color:var(--accent-line)}.hs-ev.maybe{border-style:dashed}.hs-ev.gone{color:var(--text-2)}
+.hs-img{flex:none;width:40px;height:40px;border-radius:7px;object-fit:cover}
+.hs-img.ph b{font-size:10.5px;letter-spacing:0}
+.hs-ev>span{display:flex;flex-direction:column;min-width:0}
+.hs-ev b{display:block;max-height:2.8em;overflow:hidden;color:inherit;font-size:13.5px;font-weight:620;line-height:1.4}
+.hs-ev small{color:var(--muted);font-family:var(--mono);font-size:11.5px}
+.hs-ev.big{padding:6px;border-color:#f1d79a;background:#fffaf0}
+.hs-ev.big .hs-img{width:64px;height:64px;border-radius:8px}
+.hs-ev.big b{font-size:14.5px;font-weight:740}
+.hs-go{position:absolute;top:50%;z-index:2;width:44px;height:44px;margin-top:-22px;border-radius:50%;border:1px solid var(--border-strong);background:rgba(255,255,255,.96);color:var(--text);font-size:24px;line-height:1;cursor:pointer;box-shadow:var(--shadow-md)}
+.hs-go:hover{border-color:var(--accent-line);color:var(--accent)}
+.hs-go.prev{left:-16px}.hs-go.next{right:-16px}.hs-go:disabled{opacity:0;pointer-events:none}
+/* one lane's month list: month label on a spine, cards two across */
+.tl{margin-top:4px}
+.tl-month{position:relative;display:grid;grid-template-columns:92px minmax(0,1fr);gap:0 20px;padding:12px 0}
+.tl-month::before{content:"";position:absolute;top:0;bottom:0;left:45px;width:2px;background:var(--accent-line);opacity:.45}
+.tl-month.gone::before{background:var(--border-strong);opacity:1}
+.tl-mh{position:sticky;top:calc(var(--top) + 16px);z-index:2;align-self:start;display:flex;flex-direction:column;align-items:center;padding:8px 4px;border-radius:14px;border:1px solid var(--border);background:#fff;box-shadow:var(--shadow-sm);text-align:center}
+.tl-mh b{font-size:18px;font-weight:800;line-height:1.3}
+.tl-mh small{color:var(--muted);font-family:var(--mono);font-size:11.5px;line-height:1.4}
+.tl-month.gone .tl-mh{background:var(--subtle);box-shadow:none}.tl-month.gone .tl-mh b{color:var(--text-2)}
+.tl-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;min-width:0;align-items:start}
+.ev{display:grid;grid-template-columns:132px minmax(0,1fr);gap:14px;align-items:start;padding:14px;border-radius:var(--r-md);border:1px solid var(--border);background:#fff;box-shadow:var(--shadow-sm);scroll-margin-top:calc(var(--top) + 24px)}
+.ev-img{display:block;width:132px;height:auto;aspect-ratio:4/3;border-radius:10px;object-fit:cover;background:var(--subtle)}
+.ev-body{min-width:0}
+.ev.st-done{background:#fbfcfc;box-shadow:none}
+.ev.heat-3{border-color:#f1d79a;background:linear-gradient(180deg,#fffaf0,#fff 60%)}
+.ev header{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;font-size:12.5px}
+.ev time{color:var(--text-2);font-family:var(--mono);font-weight:650}
+.ev .st{padding:0 8px;border-radius:999px;border:1px solid var(--border-strong);color:var(--text-2);font-size:12px;line-height:20px}
+.st-sched .st{color:var(--brand-deep);border-color:var(--brand-500);background:var(--brand-50)}
+.st-today .st{color:#2e1f00;background:var(--warm-2);border-color:var(--warm-2);font-weight:700}
+.st-due .st,.st-exp .st{color:#8a5a00;border-color:#e9b949;border-style:dashed;background:#fffaf0}
+.st-unc .st{color:var(--danger);border-color:#e7a3ad;border-style:dashed}
+.ev .cd{color:var(--brand-700);font-family:var(--mono);font-weight:700}
+.ev .hot{padding:0 8px;border-radius:999px;background:linear-gradient(135deg,#ffe08f,#ffc542);color:#2e1f00;font-size:12px;font-weight:750;line-height:20px}
+.ev h4{margin-top:6px;font-size:16.5px;font-weight:720;line-height:1.4}.ev.heat-3 h4{font-size:17.5px}
+.ev .what{margin-top:4px;color:var(--text);font-size:14px;line-height:1.7}
+.ev .why{margin-top:6px;color:var(--text-2);font-size:13.5px;line-height:1.7}
+.ev .why b{margin-right:8px;color:var(--accent);font-size:12px;font-weight:650}
+.ev footer,.yt footer{padding:0;border-top:0;text-align:left}   /* not the page footer */
+.ev footer{margin-top:8px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;color:var(--muted);font-size:12.5px}
+.ev .src a,.yt footer a{display:inline-block;margin:-10px 0 -10px 6px;padding:10px 0;color:var(--text-2);text-decoration:underline;text-decoration-color:var(--border-strong);text-underline-offset:3px}
+.ev .src a:hover,.yt footer a:hover{color:var(--brand-deep);text-decoration-color:var(--brand-500)}
+.ev:target,.yt:target{border-color:var(--brand-500);box-shadow:0 0 0 3px rgba(54,165,144,.35),var(--shadow-md)}
+.tl-pastbox>summary{list-style:none;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;min-height:54px;padding:12px 18px;border-radius:var(--r-md);border:1px dashed var(--border-strong);background:#fff;color:var(--muted);font-size:13.5px;cursor:pointer}
+.tl-pastbox>summary::-webkit-details-marker{display:none}
+.tl-pastbox>summary:hover{border-color:var(--accent-line)}
+.tl-pastsum b{color:var(--text);font-size:15.5px;font-weight:720}
+.tl-pastsum .more{margin-left:auto;display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-size:14px;font-weight:650}
+.tl-pastsum .more::after{content:"";width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:translateY(-2px) rotate(45deg)}
+.tl-pastbox[open] .tl-pastsum .more::after{transform:translateY(2px) rotate(-135deg)}
+.tl-pastbox:not([open]) .more .c,.tl-pastbox[open] .more .o{display:none}
+.tl-pastbox[open]>summary{margin-bottom:6px}
+.tl-today{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:16px;margin:16px 0;padding:18px 0;scroll-margin-top:calc(var(--top) + 24px)}
+.tl-today::before{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;background:linear-gradient(90deg,transparent,var(--warm) 12%,var(--warm) 88%,transparent)}
+.tl-pill{position:relative;display:inline-flex;align-items:center;gap:10px;padding:9px 18px;border-radius:999px;border:1px solid var(--warm);background:var(--warm-bg);color:var(--warm-ink);font-size:15px;font-weight:780;white-space:nowrap;box-shadow:0 4px 18px rgba(227,162,26,.22)}
+.tl-pill .pulse{width:8px;height:8px;border-radius:50%;background:var(--warm);box-shadow:0 0 0 3px rgba(227,162,26,.25)}
+.tl-up,.tl-down{position:relative;color:var(--muted);font-size:13px}
+.tl-up{justify-self:end;transform:translateY(-17px)}.tl-down{justify-self:start;transform:translateY(17px)}
+.nx-img.ph,.hs-img.ph,.ev-img.ph,.yt-img.ph{display:grid;place-items:center}   /* after the picture rules that set display:block */
+.nx-img.ph b{font-size:22px;letter-spacing:.2em;opacity:.85}
+/* YouTube history: peak bars against one anchor, then one card per wave with its YouTube search curve */
+.yt-sub{margin-top:22px;font-size:16px;font-weight:720}
+.yt-compare{margin-top:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 28px}
+.yt-compare a{display:grid;grid-template-columns:9.5em minmax(0,1fr) 4.5em;align-items:center;gap:12px;min-height:36px;padding:2px 6px;border-radius:8px}
+.yt-compare a:hover{background:#fff}
+.yc-n{font-size:14px;font-weight:620;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.yc-bar{height:10px;border-radius:999px;background:#e5eaec;overflow:hidden}
+.yc-bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#e5484d,#f98a6b)}
+.yt-compare .anchor .yc-bar i{background:linear-gradient(90deg,var(--warm),#f7cf6a)}
+.yt-compare b{color:var(--text-2);font-family:var(--mono);font-size:13px;font-weight:650;text-align:right}
+""" + "".join(f".yc-bar i.w{n}{{width:{n if n > 1 else 1.5}%}}" for n in [1] + list(range(5, 101, 5))) + """
+.yts{margin-top:22px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.yt{min-width:0;padding:18px;border-radius:var(--r-lg);border:1px solid var(--border);background:#fff;box-shadow:var(--shadow-sm);scroll-margin-top:calc(var(--top) + 24px)}
+.yt header{display:grid;grid-template-columns:132px minmax(0,1fr);gap:14px;align-items:start}
+.yt-img{display:block;width:132px;height:auto;aspect-ratio:4/3;border-radius:10px;object-fit:cover}
+.yt-kind{color:var(--muted);font-size:12.5px}
+.yt h3{margin-top:2px;font-size:18px;font-weight:740;line-height:1.35}
+.yt-what{margin-top:6px;color:var(--text-2);font-size:14px;line-height:1.7}
+.yt-chart{margin-top:14px}
+.yt-spark{display:block;width:100%;height:auto}
+.yt-spark .area{fill:rgba(229,72,77,.12)}
+.yt-spark .line{fill:none;stroke:#e5484d;stroke-width:2.5;stroke-linejoin:round}
+.yt-spark line.pk{stroke:rgba(13,21,23,.28);stroke-width:1;stroke-dasharray:3 3}
+.yt-spark circle.pk{fill:#fff;stroke:#e5484d;stroke-width:2.5}
+.yt-axis{margin-top:4px;display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-family:var(--mono);font-size:11.5px}
+.yt-axis span:nth-child(2){font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.yt-stats{margin-top:12px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.yt-stats li{padding:8px 10px;border-radius:10px;background:var(--subtle);border:1px solid var(--border)}
+.yt-stats b{display:block;color:var(--text);font-family:var(--mono);font-size:16px;font-weight:740;font-variant-numeric:tabular-nums}
+.yt-stats span{color:var(--muted);font-size:12px}
+.yt-rec{margin-top:12px;padding:8px 12px;border-left:3px solid #e5484d;border-radius:0 8px 8px 0;background:#fff4f4;color:var(--text);font-size:14px;line-height:1.7}
+.yt-more{margin-top:10px}
+.yt-more>summary{display:inline-flex;align-items:center;gap:8px;min-height:40px;color:var(--brand-700);font-size:13.5px;font-weight:650;cursor:pointer;list-style:none}
+.yt-more>summary::-webkit-details-marker{display:none}
+.yt-more>summary::after{content:"";width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg)}
+.yt-more[open]>summary::after{transform:translateY(1px) rotate(-135deg)}
+.yt-why{color:var(--text-2);font-size:13.5px;line-height:1.7}
+.yt footer{margin-top:10px;color:var(--muted);font-size:12.5px}
+.tl-note{margin-top:18px;max-width:900px;color:var(--muted);font-size:13px;line-height:1.75}
+.fine-sec{padding:32px 0 8px;border-top:1px solid var(--border)}
+.fine-sec h2{font-size:18px;font-weight:740}
+.tlp main ul.fine{margin-top:10px;padding-left:20px;list-style:disc}
+.fine li{margin:4px 0;color:var(--text-2);font-size:14px;line-height:1.75}.fine a{color:var(--brand-700);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:1100px){.tl-cards{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:900px){
+.lane-sec{padding-top:30px}
+.nxs{grid-template-columns:minmax(0,1fr);gap:12px}
+.nx{display:grid;grid-template-columns:136px minmax(0,1fr);align-items:center}
+.nx-img{height:100%;min-height:104px;aspect-ratio:auto}
+.nx-body{padding:12px 16px}
+.nx-big{top:8px;left:8px;padding:4px 8px 5px;border-radius:9px}
+.nx-n{font-size:22px}.nx-n.sm{font-size:13px}.nx-u{font-size:12px}.nx-title{font-size:16.5px}
+.nx-img.ph{align-items:end;padding-bottom:12px}.nx-img.ph b{font-size:16px;letter-spacing:.12em}
+.hs-go{display:none}
+.hs-col{width:200px}.hs-col.w2{width:340px}.hs-col.empty{display:none}.hs-col.now{display:flex}
+.tl-month{grid-template-columns:minmax(0,1fr);gap:10px;padding:10px 0 10px 22px}
+.tl-month::before{left:6px}
+.tl-mh{position:static;flex-direction:row;align-items:baseline;gap:8px;justify-self:start;margin-left:-22px;padding:4px 14px}
+.tl-today{grid-template-columns:minmax(0,1fr);justify-items:center;gap:4px;padding:6px 0}
+.tl-up,.tl-down{justify-self:center;transform:none}
+.yt-compare,.yts{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:680px){
+.lane-head h2{font-size:25px}
+.ev{grid-template-columns:88px minmax(0,1fr);gap:12px;padding:12px}
+.ev-img{width:88px;aspect-ratio:1}
+.ev h4,.ev.heat-3 h4{font-size:16px}
+.nx{grid-template-columns:112px minmax(0,1fr)}
+.hs-ev.big .hs-img{width:52px;height:52px}
+.yt{padding:14px}.yt header{grid-template-columns:88px minmax(0,1fr);gap:12px}.yt-img{width:88px;aspect-ratio:1}.yt h3{font-size:17px}
+.yt-stats{gap:6px}.yt-stats li{padding:6px 7px}.yt-stats b{font-size:13.5px}.yt-stats span{font-size:11px}
+.yt-compare a{grid-template-columns:7.5em minmax(0,1fr) 4em;gap:8px}}
+"""
+
+TIMELINE_JS = """
+(function(){
+/* each lane's month strip opens with today's month near the left; arrows page it on wide screens;
+   the strip is as tall as the month cards in view, not as the busiest month */
+document.querySelectorAll('.hs-wrap').forEach(function(wrap){
+  var hs=wrap.querySelector('.hs'),now=wrap.querySelector('.hs-now');
+  if(!hs||!now)return;
+  hs.style.scrollBehavior='auto';
+  hs.scrollLeft+=now.closest('.hs-col').getBoundingClientRect().left-hs.getBoundingClientRect().left-(hs.clientWidth<600?4:hs.clientWidth*.25);
+  hs.style.scrollBehavior='';
+  var prev=wrap.querySelector('.hs-go.prev'),next=wrap.querySelector('.hs-go.next'),cols=[].slice.call(hs.querySelectorAll('.hs-col'));
+  function fit(){
+    var box=hs.getBoundingClientRect(),h=0;
+    cols.forEach(function(c){var r=c.getBoundingClientRect();if(r.height&&r.right>box.left+4&&r.left<box.right-4)h=Math.max(h,r.height);});
+    hs.style.height=h?(Math.ceil(h)+14)+'px':'';
+    prev.disabled=hs.scrollLeft<8;
+    next.disabled=hs.scrollLeft+hs.clientWidth>hs.scrollWidth-8;
+  }
+  [prev,next].forEach(function(b,i){b.hidden=false;b.addEventListener('click',function(){hs.scrollBy({left:(i?1:-1)*hs.clientWidth*.7});});});
+  var fitting=0;
+  hs.addEventListener('scroll',function(){cancelAnimationFrame(fitting);fitting=requestAnimationFrame(fit);},{passive:true});
+  window.addEventListener('resize',fit);
+  fit();
+});
+/* a jump to a card or month inside a lane's folded past opens it first */
+function reveal(){
+  var t=/^#(ev-|[a-z]-m-)/.test(location.hash)&&document.getElementById(location.hash.slice(1));
+  var box=t&&t.closest('details');
+  if(box&&!box.open){box.open=true;t.scrollIntoView();}
+}
+window.addEventListener('hashchange',reveal);
+document.addEventListener('click',function(ev){if(ev.target.closest('a[href^="#ev-"]'))setTimeout(reveal);});
+reveal();
+})();
+"""
+
+TIMELINE_LANES = [   # (lane, id prefix, section title, what goes in it); AI video first
+    ("video", "v", "AI 视频线", "视频生成模型和工具的大版本，加上做 AI 视频的人会追着二创的影视、游戏大作。"),
+    ("ai", "a", "AI 线", "大模型发布和开源、大公司的 AI 产品、大会和影响大的政策。"),
+]
+
+
+def timeline_on() -> bool:
+    """The daily pages link to the timeline when its events file is there."""
+    return (config.TIMELINE_DIR / "events.json").is_file()
+
+
+def timeline_page(shown: list[dict], today: date, topics: list[dict] = (), trends: dict | None = None) -> str:
+    """timeline/index.html: the two lanes, then YouTube history and how to read it. ``shown`` is already
+    limited to the window around ``today``; links are relative (../ is the daily page)."""
+    tl = timeline
+    first, last = tl.window(today)
+    lanes = []
+    for lane, key, name, what in TIMELINE_LANES:
+        evs = [x for x in shown if x["lane"] == lane]
+        coming = sum(1 for x in evs if not tl.is_past(x, today))
+        nxt = tl.next_up(evs, today)
+        lanes.append(f'''<section class="lane-sec lane-{lane}" id="lane-{lane}"><div class="wrap">
+  <header class="lane-head"><p class="kicker">{"AI VIDEO" if lane == "video" else "AI"}</p><h2>{name}</h2><p class="lane-desc">{what}</p>
+    <p class="tl-meta"><span>{len(evs)} 件</span><span>接下来 {coming} 件</span></p></header>
+  <h3 class="lane-sub">接下来的大热点</h3>{f'<div class="nxs">{nxt}</div>' if nxt else '<p class="lane-note">接下来半年还没有记下的大事。</p>'}
+  <h3 class="lane-sub">时间轴</h3><p class="lane-note">左右滑动看前后各半年，黄线是今天，封面大的是大热点，点一件跳到它的详情。</p>{tl.strip(evs, today)}
+  <h3 class="lane-sub">逐月看</h3>{tl.month_list(evs, today, key)}
+</div></section>''')
+    yt = ""
+    if topics:
+        trends = trends or {}
+        anchor = tl.anchor_title(topics)
+        got = str(trends.get("fetched", ""))
+        got = f"{int(got[5:7])} 月 {int(got[8:10])} 日" if re.fullmatch(r"\d{4}-\d{2}-\d{2}", got) else got
+        yt = f'''<section class="lane-sec" id="yt-hot"><div class="wrap">
+  <header class="lane-head"><p class="kicker">YOUTUBE</p><h2>YouTube 历史热点</h2><p class="lane-desc">过去这一年多 YouTube 上最大的几波热点，在 YouTube 里被搜了多少、火了多久。看一波热点从冒头到见顶要几周、能撑多久，下一波来了心里有数。</p></header>
+  <h3 class="yt-sub">谁更火：YouTube 搜索的高峰对比，以{e(anchor)}的高峰为 1</h3>{tl.youtube_compare(topics, anchor)}
+  <div class="yts">{tl.youtube_cards(topics, trends)}</div>
+  <p class="tl-note">热度来自 Google Trends 的 YouTube 搜索类目（全球，按周），{e(got)}取数。每条曲线以自己的最高点为 100；高峰对比是把每个词和{e(anchor)}放在一起查出来的倍数。搜索热度看的是在 YouTube 里搜这个词的人多不多，播放量要另看；泛词（比如世界杯）会把所有相关搜索都算进去。</p>
+</div></section>'''
+    pics = any(x.get("image") for x in shown) or any(t.get("image") for t in topics)
+    fine = [
+        "两条线怎么分：AI 线放模型发布和开源、大公司产品上线、大会和影响大的政策。AI 视频线放视频生成模型和工具的大版本，也放热门影视和游戏，因为做 AI 视频的人会追着这些 IP 做二创、换角色、仿预告。",
+        "日期：精确到日的写几月几日。只知道月份的写「几月内」，只知道季度的写「几季度」，不猜具体哪天。",
+        "状态：已发生、已定档（官方给了日子）、预计（有可靠报道但没定日子）、待证实（只有单一来源）。定了档的日子过了还没核实，会标「日期已过，待确认」。",
+        "每件都附来源，优先官方公告，其次权威媒体。改档、跳票会跟着改。",
+    ] + (["配图版权归原作者，鼠标停在图上能看到出处。"] if pics else [])
+    fine_html = "".join(f"<li>{e(x)}</li>" for x in fine) + (
+        '<li>时间线跟着生成页面的日期走，始终是前后各半年。给 Agent 读的数据在 '
+        '<a href="../data/timeline.json">data/timeline.json</a>。</li>')
+    jump = '<a href="#lane-video">AI 视频线</a><a href="#lane-ai">AI 线</a>' + ('<a href="#yt-hot">YouTube 历史热点</a>' if yt else '')
+    return f"""<!doctype html>
+<html lang="zh-CN" class="tlp"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 热点时间线 · {e(config.SITE_NAME)}</title><meta name="robots" content="noindex"><meta name="referrer" content="no-referrer">
+<style>{CSS}{TIMELINE_CSS}</style></head>
+<body>
+<nav class="nav"><div class="nav-in"><a class="brand" href="../">{LOGO}{e(config.SITE_NAME)}<small>热点时间线</small></a></div></nav>
+<header class="mast"><div class="wrap">
+  <a class="back" href="../">← 回到今天的情报</a>
+  <h1>AI 热点时间线</h1>
+  <p class="lead">以今天为中心，往前往后各半年，AI 视频和 AI 分成两条线。视频模型和工具、做 AI 视频的人会追着二创的影视和游戏大作，加上模型发布和开源、大公司上新，什么时候有大热点，一眼看清楚。</p>
+  <p class="tl-meta"><span>{first.year} 年 {first.month} 月 — {last.year} 年 {last.month} 月</span><span>一共 {len(shown)} 件</span></p>
+  <p class="tl-jump">{jump}</p>
+</div></header>
+<main>
+{"".join(lanes)}
+{yt}
+<section class="fine-sec"><div class="wrap"><h2>说明</h2><ul class="fine">{fine_html}</ul></div></section>
+</main>
+<footer><b>{e(config.SITE_NAME)}</b> · {e(_by("出品 · "))}整理自公开报道和官方公告</footer>
+<script>{TIMELINE_JS}</script>
+</body></html>"""
+
+
+def write_timeline(today: date | None = None, lock: bool = True) -> bool:
+    """timeline/index.html (and the pictures it uses, in timeline/img/), data/timeline.json and
+    data/youtube-history.json from the files in RADAR_TIMELINE_DIR. Bad events are left out and named on
+    stderr; a file that is not valid JSON leaves the last good page as it was. False when nothing was written."""
+    if not timeline_on():
+        return False
+    folder = config.TIMELINE_DIR
+    try:
+        events, problems = timeline.load(folder / "events.json")
+    except (OSError, ValueError) as exc:
+        print("timeline:", exc, "(page not updated)", file=sys.stderr)
+        return False
+    try:
+        topics, trends, yt_problems = timeline.load_youtube(folder / "youtube_hot.json", folder / "youtube_trends.json")
+    except (OSError, ValueError) as exc:
+        topics, trends, yt_problems = [], {}, [f"{exc} (YouTube section left out)"]
+    for p in problems + yt_problems:
+        print("timeline:", p, file=sys.stderr)
+    today = today or timeline.today_bj()
+    shown = timeline.in_window(events, today)
+    config.ensure_dirs()
+    out = config.SITE_DIR / "timeline"
+    out.mkdir(exist_ok=True)
+    names = timeline.pictures(shown, topics)
+    if names:
+        (out / "img").mkdir(exist_ok=True)
+        for name in names:
+            shutil.copyfile(folder / "images" / name, out / "img" / name)
+    (out / "index.html").write_text(timeline_page(shown, today, topics, trends), encoding="utf-8")
+    data = config.SITE_DIR / "data"
+    (data / "timeline.json").write_text(json.dumps(timeline.public_json(shown, today), ensure_ascii=False, indent=1),
+                                        encoding="utf-8")
+    yt = data / "youtube-history.json"
+    if topics:
+        yt.write_text(json.dumps(timeline.public_youtube(topics, trends), ensure_ascii=False, indent=1), encoding="utf-8")
+    elif yt.exists():
+        yt.unlink()
+    if lock:
+        _lock_down()
+    return True
+
+
 PUBLIC_STATS = ("items", "by_source")
 
 
@@ -1106,8 +1460,18 @@ def _by(suffix: str) -> str:
     return config.SITE_BY + suffix if config.SITE_BY else ""
 
 
+def _lock_down() -> None:
+    """The site's files readable by this user only (sync them out; don't serve the folder to others in place)."""
+    for p in config.SITE_DIR.rglob("*"):
+        try:
+            os.chmod(p, 0o700 if p.is_dir() else 0o600)
+        except OSError:
+            pass
+
+
 def write_site(con, brief: dict) -> None:
     config.ensure_dirs()
+    write_timeline(lock=False)
     days = db.brief_days(con)
     if brief["day"] not in days:
         days = sorted(days + [brief["day"]], reverse=True)
@@ -1129,8 +1493,4 @@ def write_site(con, brief: dict) -> None:
             (config.SITE_DIR / "d" / f"{other}.html").write_text(
                 page(json.loads(r["payload"]), days, deep_ids={t.get("thread_id") for t in odp["topics"]} if odp else set()),
                 encoding="utf-8")
-    for p in config.SITE_DIR.rglob("*"):
-        try:
-            os.chmod(p, 0o700 if p.is_dir() else 0o600)
-        except OSError:
-            pass
+    _lock_down()

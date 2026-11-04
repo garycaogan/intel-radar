@@ -1,0 +1,230 @@
+{
+  "说明": [
+    "热点时间线里「YouTube 历史热点」的条目。曲线数据在 youtube_trends.json（Google Trends，YouTube 搜索类目），按 keyword 对上。",
+    "刷新曲线：youtube_trends.js（在浏览器里跑，见 README）。加一条：照着抄，keyword 要先在 youtube_trends.json 里有数据。",
+    "字段：id、title、kind、start_label（引爆时间，原样显示）、keyword、what、record（硬数据，带口径）、why、sources、checked；可选 image，写法和 events.json 一样。"
+  ],
+  "topics": [
+    {
+      "id": "kpop-demon-hunters",
+      "title": "KPop 猎魔女团",
+      "kind": "动画",
+      "start_label": "2025.6.20",
+      "keyword": "kpop demon hunters",
+      "what": "Netflix 动画歌舞片，女团白天唱跳晚上猎魔，原声《Golden》《Soda Pop》全球刷屏。",
+      "record": "YouTube 2025 美区年终榜：年度热门话题第 3，《Golden》年度热歌第 3、热歌前十占 4 首。《Golden》MV 不到 7 个月破 10 亿（2026 年 1 月）",
+      "why": "把 HUNTR/X 当真女团做翻唱、换装、角色互换和鲁米金宇情侣梗，歌就是现成素材。",
+      "sources": [
+        {"name": "YouTube Blog：2025 年终总结（美区榜单）", "url": "https://blog.youtube/culture-and-trends/end-of-year-summary-2025/"},
+        {"name": "YouTube Blog：Trending Now 2025 年 8 月", "url": "https://blog.youtube/culture-and-trends/trending-now-august-2025/"},
+        {"name": "Google Blog：YouTube 2025 年终回顾（APT. 最快破 10 亿）", "url": "https://blog.google/products-and-platforms/products/youtube/end-of-year-summary-2025/"},
+        {"name": "Billboard Canada：《Golden》YouTube 破 10 亿（2026-01-14）", "url": "https://ca.billboard.com/music/music-news/kpop-demon-hunters-golden-billion-views-club-youtube-1236155134"},
+        {"name": "Korea Times：YouTube 韩国年终榜（2025-12-03）", "url": "https://www.koreatimes.co.kr/business/companies/20251203/kpop-demon-hunters-sweeps-youtube-year-end-charts"},
+        {"name": "Tubefilter：Shorts 每周数十亿播放（2026-05-26）", "url": "https://www.tubefilter.com/2026/05/26/top-50-most-viewed-youtube-channels-week-of-05-24-2026/"},
+        {"name": "Screen Daily：2025 下半年 4.816 亿次 Netflix 观看", "url": "https://www.screendaily.com/news/netflix-record-holder-kpop-demon-hunters-drew-482m-views-in-2025/5212864.article"},
+        {"name": "The Star：《Golden》获奥斯卡最佳原创歌曲（2026-03-16）", "url": "https://www.thestar.com.my/lifestyle/entertainment/2026/03/16/039golden039-from-039kpop-demon-hunters039-wins-oscar-for-best-original-song"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "italian-brainrot",
+      "title": "意大利脑腐",
+      "kind": "梗",
+      "start_label": "2025.1 冒头，3 月出圈",
+      "keyword": "tralalero tralala",
+      "what": "AI 画的怪诞生物配假意大利语名字和配音，比如穿耐克的三条腿鲨鱼。国内叫「美国山海经」，其实跟美国没关系。",
+      "record": "YouTube 2025 文化趋势报告：全年相关上传超 45 万条。美区年度热门话题第 4（Brainrot）",
+      "why": "角色全是 AI 图，门槛低、能无限加新角色，做角色对战、恋爱剧情、配歌走秀都行。",
+      "sources": [
+        {"name": "YouTube Blog：Trending now 2025 年 6 月", "url": "https://blog.youtube/culture-and-trends/trending-now-june-2025/"},
+        {"name": "YouTube Blog：2025 年终总结（美区热门话题）", "url": "https://blog.youtube/culture-and-trends/end-of-year-summary-2025/"},
+        {"name": "Know Your Meme：Italian Brainrot", "url": "https://knowyourmeme.com/memes/italian-brainrot-ai-italian-animals"},
+        {"name": "Know Your Meme：Tung Tung Tung Sahur", "url": "https://knowyourmeme.com/memes/tung-tung-tung-sahur"},
+        {"name": "Wikipedia：Italian brainrot", "url": "https://en.wikipedia.org/wiki/Italian_brainrot"},
+        {"name": "Creative Bloq：引用 YouTube 2025 文化趋势报告（2025-09-06）", "url": "https://www.creativebloq.com/design/youtubes-creative-trend-report-is-making-me-feel-old"},
+        {"name": "Tubefilter：脑腐频道一周涨粉 43 万（2025-06-09）", "url": "https://www.tubefilter.com/2025/06/09/top-50-most-subscribed-youtube-channels-week-of-06-08-2025/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "squid-game",
+      "title": "鱿鱼游戏第二、三季",
+      "kind": "影视",
+      "start_label": "2024.12.26 / 2025.6.27",
+      "keyword": "squid game",
+      "what": "Netflix《鱿鱼游戏》第二季 2024 年 12 月底上线，最终季 2025 年 6 月 27 日上线，YouTube 搜索有两个高峰。",
+      "record": "YouTube 2025 美区年度热门话题第 1（整个 IP，含第二季余热）。第三季 Netflix 首 3 天 6010 万次观看",
+      "why": "规则简单、守卫和木头人娃娃一眼能认，最适合 AI 换角色重演游戏、做挑战复刻和恶搞短剧。",
+      "sources": [
+        {"name": "YouTube Blog：2025 年终总结（美区热门话题第 1）", "url": "https://blog.youtube/culture-and-trends/end-of-year-summary-2025/"},
+        {"name": "Variety：第三季 3 天 6010 万次观看", "url": "https://au.variety.com/2025/tv/news/squid-game-3-ratings-netflix-record-views-24445/"},
+        {"name": "Korea Times：YouTube 韩国年终热门话题", "url": "https://www.koreatimes.co.kr/business/companies/20251203/kpop-demon-hunters-sweeps-youtube-year-end-charts"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "ghibli-ai",
+      "title": "吉卜力风 AI 图",
+      "kind": "AI 工具",
+      "start_label": "2025.3.25",
+      "keyword": "ghibli",
+      "what": "OpenAI 3 月 25 日把出图做进 GPT-4o，一天内全网把自拍、名场面改成吉卜力动画风。",
+      "record": "Altman 自称 2025-03-31 一小时内 ChatGPT 新增 100 万用户（非 YouTube 数据）",
+      "why": "照片一键变吉卜力风，再接图生视频做动起来的老照片、名场面重画和出图教程，起号快。",
+      "sources": [
+        {"name": "OpenAI：Introducing 4o Image Generation（2025-03-25）", "url": "https://openai.com/index/introducing-4o-image-generation/"},
+        {"name": "NBC News：吉卜力风梗图刷屏", "url": "https://www.nbcnews.com/tech/tech-news/studio-ghibli-chatgpt-inspired-memes-portraits-rcna198273"},
+        {"name": "CNN（KEYT 转载）：吉卜力风 AI 图走红和版权争议（2025-03-27）", "url": "https://keyt.com/lifestyle/entertainment/cnn-style/2025/03/27/viral-studio-ghibli-style-ai-images-showcase-power-and-copyright-concerns-of-chatgpt-update/"},
+        {"name": "Engadget：ChatGPT 一小时新增百万用户", "url": "https://www.engadget.com/ai/chatgpt-gained-one-million-new-users-in-an-hour-today-201314746.html"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "veo-3-ai-asmr",
+      "title": "Veo 3 · AI ASMR",
+      "kind": "AI 工具",
+      "start_label": "2025.5.20",
+      "keyword": "veo 3",
+      "what": "谷歌 5 月 20 日发 Veo 3，AI 视频首次自带对白音效，切玻璃水果 AI ASMR 刷屏。",
+      "record": "谷歌称上线 7 周生成超 4000 万条 Veo 3 视频（2025-07，非 YouTube）",
+      "why": "8 秒带声音的片段直接能发，做切玻璃、切宝石的 AI ASMR、假街采和角色 vlog。",
+      "sources": [
+        {"name": "Google Blog：I/O 2025 发布 Veo 3、Imagen 4、Flow", "url": "https://blog.google/innovation-and-ai/products/generative-media-models-io-2025/"},
+        {"name": "YouTube Blog：Trending now 2025 年 7 月（Veo 3）", "url": "https://blog.youtube/culture-and-trends/trending-now-july-2025/"},
+        {"name": "YouTube Blog：Trending Now 2025 年 8 月（AI ASMR）", "url": "https://blog.youtube/culture-and-trends/trending-now-august-2025/"},
+        {"name": "Google Blog（MENA）：7 周 4000 万条 Veo 3 视频", "url": "https://blog.google/intl/en-mena/product-updates/explore-get-answers/flow-launches-in-mena-image-to-video-gemini/"},
+        {"name": "Gizmodo：Shorts 免费接入 Veo 3 Fast（2025-09-16）", "url": "https://gizmodo.com/get-ready-to-see-more-ai-on-youtube-2000659520"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "sora-2",
+      "title": "Sora 2",
+      "kind": "AI 工具",
+      "start_label": "2025.9.30",
+      "keyword": "sora 2",
+      "what": "OpenAI 9 月 30 日发 Sora 2 和同名 App，能把自己「客串」进 AI 视频。",
+      "record": "OpenAI 称 App 不到 5 天下载破 100 万，快过 ChatGPT（2025-10，非 YouTube）",
+      "why": "一句话出带声音的整段短剧，客串功能能把自己和朋友塞进恶搞，适合监控视角、假新闻体这类整活短片。",
+      "sources": [
+        {"name": "NBC News：OpenAI 发布 Sora 2 和客串 App", "url": "https://www.nbcnews.com/tech/tech-news/openai-announces-sora-2-ai-video-audio-app-rcna234753"},
+        {"name": "KRON4：Sora App 5 天破 100 万下载", "url": "https://www.kron4.com/news/technology-ai/openais-sora-app-tops-1m-downloads-in-just-5-days/amp"},
+        {"name": "TechRadar：Sora 登顶下载榜", "url": "https://www.techradar.com/ai-platforms-assistants/sora-is-the-top-app-downloaded-but-you-still-need-an-invite-to-get-it"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "seedance-2",
+      "title": "Seedance 2.0",
+      "kind": "AI 工具",
+      "start_label": "2026.2",
+      "keyword": "seedance",
+      "what": "字节 2026 年 2 月出 Seedance 2.0，一条阿汤哥对打皮特的 AI 片吓到好莱坞。",
+      "record": "",
+      "why": "多镜头叙事加原生音画，能做电影感打戏、名人和动漫 IP 混剪，海外创作者到处找门路用。",
+      "sources": [
+        {"name": "Wikipedia：Seedance", "url": "https://en.wikipedia.org/wiki/Seedance"},
+        {"name": "The Star：皮特对打阿汤哥的 AI 片震动好莱坞（2026-02-18）", "url": "https://www.thestar.com.my/lifestyle/entertainment/2026/02/18/viral-ai-video-of-brad-pitt-fighting-tom-cruise-shakes-hollywood"},
+        {"name": "界面新闻：Seedance 2.0 海外走红", "url": "https://en.jiemian.com/article/14010151.html"},
+        {"name": "TechCrunch：Seedance 2.0 接入 CapCut（2026-03-26）", "url": "https://techcrunch.com/2026/03/26/bytedances-new-ai-video-generation-model-dreamina-seedance-2-0-comes-to-capcut/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "chicken-jockey",
+      "title": "我的世界·鸡骑士",
+      "kind": "影视",
+      "start_label": "2025.4.4",
+      "keyword": "chicken jockey",
+      "what": "《我的世界大电影》里杰克·布莱克喊「Chicken jockey!」，影院观众跟着欢呼起哄。",
+      "record": "最终预告 YouTube 5 天超 2100 万播放。北美首周末 1.63 亿美元，游戏改编片最高",
+      "why": "台词短、画面固定，最适合做影院反应、鸡骑士换角色、ViggleAI 换人和各种鬼畜剪辑。",
+      "sources": [
+        {"name": "Know Your Meme：Chicken Jockey", "url": "https://knowyourmeme.com/memes/chicken-jockey-minecraft-movie"},
+        {"name": "Box Office Mojo：A Minecraft Movie", "url": "https://www.boxofficemojo.com/title/tt3566834/"},
+        {"name": "Slashfilm：影院鸡骑士闹场", "url": "https://www.slashfilm.com/1832021/why-minecraft-fans-trashing-theaters-chicken-jockey-scene"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "labubu",
+      "title": "Labubu",
+      "kind": "梗",
+      "start_label": "2025 春夏",
+      "keyword": "labubu",
+      "what": "泡泡玛特的尖牙小怪兽盲盒，Lisa 带火后 2025 年春夏在全球抢购断货，挂包、改娃衣成了潮流。",
+      "record": "YouTube 2025 美区年度热门话题第 6。YouTube 官方 2025-07 Trending now 点名",
+      "why": "形象一眼能认，适合做拆盲盒、巨型 Labubu、恐怖反转这类 AI 短片，借它的搜索热度。",
+      "sources": [
+        {"name": "YouTube Blog：Trending now 2025 年 7 月（Labubu）", "url": "https://blog.youtube/culture-and-trends/trending-now-july-2025/"},
+        {"name": "YouTube Blog：2025 年终总结（美区热门话题）", "url": "https://blog.youtube/culture-and-trends/end-of-year-summary-2025/"},
+        {"name": "Irish Examiner：泡泡玛特股价 8 月 26 日见顶后回落", "url": "https://www.irishexaminer.com/business/companies/arid-41705570.html"},
+        {"name": "Wikipedia：Labubu", "url": "https://en.wikipedia.org/wiki/Labubu"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "six-seven",
+      "title": "「67」梗",
+      "kind": "梗",
+      "start_label": "2025.3",
+      "keyword": "67",
+      "what": "说唱歌《Doot Doot (6 7)》里的「six seven」加摊手手势，被美国中小学生喊遍。",
+      "record": "原曲进 YouTube 2025 美区 Shorts 年度热歌第 7。Dictionary.com 2025 年度词",
+      "why": "一个数字加一个手势就是梗，做 67 彩蛋、角色比手势和反转结尾，成本极低、小朋友爱看。",
+      "sources": [
+        {"name": "YouTube Blog：2025 年终总结（美区 Shorts 热歌）", "url": "https://blog.youtube/culture-and-trends/end-of-year-summary-2025/"},
+        {"name": "CBS News：Dictionary.com 把 67 选为 2025 年度词", "url": "https://www.cbsnews.com/news/dictionary-67-2025-word-of-the-year-meaning/"},
+        {"name": "Wikipedia：6-7 meme", "url": "https://en.wikipedia.org/wiki/6-7_meme"},
+        {"name": "Know Your Meme：Doot Doot (6 7)", "url": "https://knowyourmeme.com/memes/6-7-song-doot-doot-by-skrilla"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "gta-6-trailers",
+      "title": "GTA6 预告",
+      "kind": "游戏",
+      "start_label": "2025.5.6",
+      "keyword": "gta 6",
+      "what": "R 星 2025 年 5 月 6 日发预告 2，2026 年 8 月 27 日在 Netflix 首播加长版，又是一波。11 月 19 日发售。",
+      "record": "R 星称预告 2 首 24 小时全平台 4.75 亿次观看，史上最大视频首发（2025-05）",
+      "why": "预告每帧都被拆解，做 AI 版预告、角色真人化、各地版 GTA 改编，发售时还会再涨一波搜索。",
+      "sources": [
+        {"name": "TechRadar：预告 2 24 小时 4.75 亿次观看", "url": "https://www.techradar.com/gaming/the-latest-grand-theft-auto-6-trailer-has-set-a-major-record-by-racking-up-475-million-views-in-just-24-hours"},
+        {"name": "GameRant：上市预告和发售日（2026-10-15）", "url": "https://gamerant.com/gta-6-trailer-3/"},
+        {"name": "Rockstar Games：GTA VI 官网", "url": "https://www.rockstargames.com/VI"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "world-cup-2026",
+      "title": "2026 世界杯",
+      "kind": "体育",
+      "start_label": "2026.6.11",
+      "keyword": "world cup",
+      "what": "美加墨合办的首届 48 队世界杯，6 月 11 日开赛，7 月 19 日决赛西班牙胜阿根廷。",
+      "record": "YouTube 称世界杯相关视频累计播放超 2000 亿、全球超 17 亿独立观众（2026-07-21）",
+      "why": "球星、进球、名场面天天有新素材，适合做球星卡通化、赛果预测动画和国家队拟人对战。",
+      "sources": [
+        {"name": "YouTube Blog：2026 世界杯在 YouTube（2026-07-21）", "url": "https://blog.youtube/culture-and-trends/youtube-fifa-world-cup-2026-viewership-stats/"},
+        {"name": "Advanced Television：世界杯内容播放超 2000 亿", "url": "https://www.advanced-television.com/2026/07/27/youtube-over-200bn-world-cup-content-views/"}
+      ],
+      "checked": "2026-11-04"
+    },
+    {
+      "id": "stranger-things-5",
+      "title": "怪奇物语最终季",
+      "kind": "影视",
+      "start_label": "2025.11.26",
+      "keyword": "stranger things",
+      "what": "Netflix《怪奇物语》第五季分三批上线：11 月 26 日、圣诞节，12 月 31 日大结局。",
+      "record": "Netflix 首 5 天 5960 万次观看，英语剧集首周最高（非 YouTube 数据）",
+      "why": "角色多，80 年代复古画风和颠倒世界一眼能认，适合做角色真人化、AI 预告和结局恶搞。",
+      "sources": [
+        {"name": "Variety（首周 5960 万）", "url": "https://au.variety.com/2025/tv/news/stranger-things-season-5-ratings-record-30577/"},
+        {"name": "维基百科（三批上线日期）", "url": "https://en.wikipedia.org/wiki/Stranger_Things_season_5"}
+      ],
+      "checked": "2026-11-04"
+    }
+  ]
+}

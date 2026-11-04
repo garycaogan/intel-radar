@@ -48,6 +48,9 @@ DATA_DIR = Path(_env("RADAR_DATA_DIR") or HOME / ".local/share/intel-radar").exp
 DB_PATH = DATA_DIR / "radar.db"
 SITE_DIR = DATA_DIR / "site"
 LOG_DIR = DATA_DIR / "logs"
+# 热点时间线: events.json, youtube_hot.json, youtube_trends.json and your own pictures in images/. The repository's
+# timeline/ folder is the sample; point this at a copy to keep your own events outside the checkout.
+TIMELINE_DIR = Path(_env("RADAR_TIMELINE_DIR") or ROOT / "timeline").expanduser()
 
 # TikHub (https://tikhub.io): YouTube, 抖音, TikTok, 小红书 and X search, billed per call.
 TIKHUB_API_KEY = _env("TIKHUB_API_KEY")
