@@ -63,7 +63,7 @@ python3 -m radar mcp                 # 用 stdio 跑 MCP（serve 也在 /mcp 上
 
 | 变量 | 用途 | 没有会怎样 |
 |---|---|---|
-| `TIKHUB_API_KEY` | [TikHub](https://tikhub.io) 的接口：YouTube、抖音、TikTok、小红书、X 的搜索和抖音热榜，按次计费 | 这几个平台跳过，只剩 B站、GitHub、Hugging Face、Hacker News 和资讯 |
+| `TIKHUB_API_KEY` | [TikHub](https://user.tikhub.io/register?ref=mr5bzFqw)（推荐链接）的接口：YouTube、抖音、TikTok、小红书、X 的搜索和抖音热榜，按次计费 | 这几个平台跳过，只剩 B站、GitHub、Hugging Face、Hacker News 和资讯 |
 | `LLM_API_KEY`、`LLM_BASE_URL`、`LLM_MODEL` | 任意 OpenAI 兼容的对话接口，默认 DeepSeek 官方（`https://api.deepseek.com`，`deepseek-v4-pro`） | 没有题材归类、X 话题和头条 |
 | `GITHUB_TOKEN`（可选） | GitHub 搜索的限流更宽 | 先试 `gh auth token`，再不行就匿名搜，偶尔会少几个仓库 |
 
